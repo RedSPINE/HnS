@@ -9,8 +9,12 @@ public class PlayerController : MonoBehaviour
     private Vector3 cursorWorldPosition;
     private Plane playerPlane;
 
+    // Animator
+    private Animator animator;
+
     // Walking
     [SerializeField] private float movementSpeed = 10f;
+    [SerializeField] private float shootingMovementSpeed = 5f;
     [SerializeField] private ParticleSystem ripples = default;
     [SerializeField] private float internalRippleInterval = 0.4f;
     private float internalRippleCD = 0f;
@@ -25,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
         playerInput = new PlayerInput();
         playerInput.KeyboardMouse.LeftClick.performed += ctx => OnLeftClickPerformed();
         playerInput.KeyboardMouse.LeftClick.canceled += ctx => OnLeftClickCanceled();
@@ -66,10 +71,14 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         Vector2 direction = playerInput.KeyboardMouse.Move.ReadValue<Vector2>();
-        if (direction.magnitude == 0) return;
+        if (direction.magnitude == 0){
+            animator.SetBool("IsRunning", false);
+            return;
+        }
+        animator.SetBool("IsRunning", true);
         Vector3 direction3 = new Vector3(direction.x, 0, direction.y);
-        characterController.Move(direction3 * movementSpeed * Time.deltaTime);
-        if(internalRippleCD > internalRippleInterval)
+        characterController.Move(direction3 * (isShooting||internalShootCD<internalShootInterval?shootingMovementSpeed:movementSpeed) * Time.deltaTime);
+        if(false)
         {
             Instantiate(ripples, new Vector3(transform.position.x, 0.05f, transform.position.z), ripples.transform.rotation);
             internalRippleCD = 0;

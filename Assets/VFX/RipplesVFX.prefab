@@ -1041,13 +1041,22 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 2
-          outSlope: 2
+          value: 0.030769348
+          inSlope: 2.9787679
+          outSlope: 2.9787679
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0
+          outWeight: 0.10845986
+        - serializedVersion: 3
+          time: 0.048014928
+          value: 0.45207813
+          inSlope: 0.09111406
+          outSlope: 0.09111406
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.11186963
         - serializedVersion: 3
           time: 1
           value: 1
