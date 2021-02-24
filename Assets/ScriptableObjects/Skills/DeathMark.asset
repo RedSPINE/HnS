@@ -15,4 +15,4 @@ MonoBehaviour:
   skillName: Marked For Death
   toolTip: Quickly fires a marking shot applying a vulnerability debuff to the first
     target hit.
-  icon: {fileID: 0}
+  icon: {fileID: 3403258472632580065, guid: a2653f26be073204c95bfd2d10d938f3, type: 3}
