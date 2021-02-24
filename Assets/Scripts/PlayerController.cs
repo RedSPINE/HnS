@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private float shootingMovementSpeed = 5f;
     [SerializeField] private ParticleSystem ripples = default;
-    [SerializeField] private float internalRippleInterval = 0.4f;
     private float internalRippleCD = 0f;
 
     // Shooting
@@ -78,11 +77,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsRunning", true);
         Vector3 direction3 = new Vector3(direction.x, 0, direction.y);
         characterController.Move(direction3 * (isShooting||internalShootCD<internalShootInterval?shootingMovementSpeed:movementSpeed) * Time.deltaTime);
-        if(false)
-        {
-            Instantiate(ripples, new Vector3(transform.position.x, 0.05f, transform.position.z), ripples.transform.rotation);
-            internalRippleCD = 0;
-        }
     }
 
     private void OnLeftClickPerformed()
