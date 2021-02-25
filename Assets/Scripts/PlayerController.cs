@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Runtime.CompilerServices;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,10 @@ public class PlayerController : MonoBehaviour
 
     // Animator
     private Animator animator;
+    private AnimatorOverrideController animatorOverrideController;
+    [SerializeField] private ScrSkill skill = null;
+
+    [SerializeField] private Dodge dodge = default;
 
     // Walking
     [SerializeField] private float movementSpeed = 10f;
@@ -29,9 +34,13 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
+        animator.runtimeAnimatorController = animatorOverrideController;
+
         playerInput = new PlayerInput();
         playerInput.KeyboardMouse.LeftClick.performed += ctx => OnLeftClickPerformed();
         playerInput.KeyboardMouse.LeftClick.canceled += ctx => OnLeftClickCanceled();
+        playerInput.KeyboardMouse.Space.performed += ctx => OnSpacePerformed();
         playerInput.Enable();
 
         playerPlane = new Plane(Vector3.up, 0f);
@@ -40,12 +49,30 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //Debug.Log($"Skill?{skill!=null} Playing?{this.animator.GetCurrentAnimatorStateInfo(0).IsName("Skill")}");
+
         internalRippleCD += Time.deltaTime;
         internalShootCD += Time.deltaTime;
         UpdateCursorWorldPosition();
+        if (skill!= null)
+        {
+            
+            skill.SkillUpdate(this);
+            return;
+        }
+
         LookCursor();
         Move();
         Shoot();
+    }
+
+    // TODO: ça marche pas il faut check proprement sinon ça peut cancel frame 1
+    private void LateUpdate() {
+        if (skill != null && !this.animator.GetCurrentAnimatorStateInfo(0).IsName("Skill"))
+        {
+            Debug.Log("Skill ended.");
+            skill = null;
+        }
     }
 
     private void UpdateCursorWorldPosition()
@@ -67,6 +94,11 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(dir);
     }
 
+    private Vector3 direction;
+    public Vector3 Direction {
+        get => direction;
+    }
+
     private void Move()
     {
         Vector2 direction = playerInput.KeyboardMouse.Move.ReadValue<Vector2>();
@@ -75,8 +107,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
         animator.SetBool("IsRunning", true);
-        Vector3 direction3 = new Vector3(direction.x, 0, direction.y);
-        characterController.Move(direction3 * (isShooting||internalShootCD<internalShootInterval?shootingMovementSpeed:movementSpeed) * Time.deltaTime);
+        this.direction = new Vector3(direction.x, 0, direction.y);
+        Move(this.direction * (isShooting||internalShootCD<internalShootInterval?shootingMovementSpeed:movementSpeed) * Time.deltaTime);
+    }
+
+    public void Move(Vector3 motion)
+    {
+        characterController.Move(direction * (isShooting||internalShootCD<internalShootInterval?shootingMovementSpeed:movementSpeed) * Time.deltaTime);
     }
 
     private void OnLeftClickPerformed()
@@ -91,6 +128,12 @@ public class PlayerController : MonoBehaviour
         isShooting = false;
     }
 
+    private void OnSpacePerformed()
+    {
+        if (skill != null) return;
+        UseSkill(dodge);
+    }
+
     private void Shoot()
     {
         if (!isShooting || internalShootCD < internalShootInterval) return;
@@ -100,5 +143,21 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = lookAtPoint - transform.position;
         dir.y = 0;
         projectile.transform.rotation = Quaternion.LookRotation(dir);
+    }
+
+    public void PlayAnimation(AnimationClip clip, float speed = 1)
+    {
+        animatorOverrideController["Skill"] = clip;
+        animator.speed = speed;
+        animator.SetTrigger("PlaySkill");
+    }
+
+    public void UseSkill(ScrSkill skill)
+    {
+        if (skill != null)
+            skill.Quit(this);
+        this.skill = skill;
+        if (skill != null)
+            skill.Enter(this);
     }
 }

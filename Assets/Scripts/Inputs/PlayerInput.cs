@@ -49,6 +49,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cf56df6-0f44-425e-96b0-d242611066dd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -139,6 +147,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce45ad56-f255-4dbd-9ea7-bff4781e2bc9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -151,6 +170,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_KeyboardMouse_LeftClick = m_KeyboardMouse.FindAction("LeftClick", throwIfNotFound: true);
         m_KeyboardMouse_RightClick = m_KeyboardMouse.FindAction("RightClick", throwIfNotFound: true);
         m_KeyboardMouse_Move = m_KeyboardMouse.FindAction("Move", throwIfNotFound: true);
+        m_KeyboardMouse_Space = m_KeyboardMouse.FindAction("Space", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -204,6 +224,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_KeyboardMouse_LeftClick;
     private readonly InputAction m_KeyboardMouse_RightClick;
     private readonly InputAction m_KeyboardMouse_Move;
+    private readonly InputAction m_KeyboardMouse_Space;
     public struct KeyboardMouseActions
     {
         private @PlayerInput m_Wrapper;
@@ -212,6 +233,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @LeftClick => m_Wrapper.m_KeyboardMouse_LeftClick;
         public InputAction @RightClick => m_Wrapper.m_KeyboardMouse_RightClick;
         public InputAction @Move => m_Wrapper.m_KeyboardMouse_Move;
+        public InputAction @Space => m_Wrapper.m_KeyboardMouse_Space;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -233,6 +255,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnMove;
+                @Space.started -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnSpace;
+                @Space.performed -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnSpace;
+                @Space.canceled -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnSpace;
             }
             m_Wrapper.m_KeyboardMouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -249,6 +274,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Space.started += instance.OnSpace;
+                @Space.performed += instance.OnSpace;
+                @Space.canceled += instance.OnSpace;
             }
         }
     }
@@ -259,5 +287,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnLeftClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnSpace(InputAction.CallbackContext context);
     }
 }
