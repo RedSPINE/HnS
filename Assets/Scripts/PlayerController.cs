@@ -5,29 +5,29 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    PlayerInput playerInput;
-    CharacterController characterController;
+    // Hidden references
+    private PlayerInput playerInput;
+    private CharacterController characterController;
     private Vector3 cursorWorldPosition;
     private Plane playerPlane;
-
-    // Animator
     private Animator animator;
     private AnimatorOverrideController animatorOverrideController;
-    [SerializeField] private ScrSkill skill = null;
-
+    private Vector3 direction;
+    public Vector3 Direction {
+        get => direction;
+    }
+    
+    [Header("Animator")]
+    [SerializeField] private ScrSkill playingSkill = null;
     [SerializeField] private Dodge dodge = default;
-
-    // Walking
+    [SerializeField] private float skillRecoveryTimer = 0;
+    
+    [Header("Walking")]
     [SerializeField] private float movementSpeed = 10f;
-    [SerializeField] private float shootingMovementSpeed = 5f;
-    [SerializeField] private ParticleSystem ripples = default;
     private float internalRippleCD = 0f;
-
-    // Shooting
-    private bool isShooting;
-    [SerializeField] private GameObject Projectile = default;
-    [SerializeField] private float internalShootInterval = 0.4f;
-    private float internalShootCD = 0f;
+    
+    [Header("Combo System")]
+    public ScrSkill[] skills;
 
     // Start is called before the first frame update
     private void Start()
@@ -38,8 +38,8 @@ public class PlayerController : MonoBehaviour
         animator.runtimeAnimatorController = animatorOverrideController;
 
         playerInput = new PlayerInput();
-        playerInput.KeyboardMouse.LeftClick.performed += ctx => OnLeftClickPerformed();
-        playerInput.KeyboardMouse.LeftClick.canceled += ctx => OnLeftClickCanceled();
+        playerInput.KeyboardMouse.LeftClick.performed += ctx => OnClickPerformed(1);
+        playerInput.KeyboardMouse.RightClick.performed += ctx => OnClickPerformed(2);
         playerInput.KeyboardMouse.Space.performed += ctx => OnSpacePerformed();
         playerInput.Enable();
 
@@ -50,29 +50,30 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //Debug.Log($"Skill?{skill!=null} Playing?{this.animator.GetCurrentAnimatorStateInfo(0).IsName("Skill")}");
-
         internalRippleCD += Time.deltaTime;
-        internalShootCD += Time.deltaTime;
         UpdateCursorWorldPosition();
-        if (skill!= null)
-        {
-            
-            skill.SkillUpdate(this);
-            return;
-        }
 
-        LookCursor();
+        if (playingSkill != null) // A skill is being used
+        {
+            playingSkill.SkillUpdate(this);
+            Debug.Log("NormalizedTime: " + this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime.ToString());
+            if (this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.999f)
+            {
+                UseSkill(null);
+                // animator.SetTrigger("StopSkill");
+            }
+            if (skillRecoveryTimer > 0)
+            {    
+                skillRecoveryTimer -= Time.deltaTime;
+                if (skillRecoveryTimer <= 0)
+                {
+                    UseSkill(null);
+                }
+            }            
+        }
+        if (playingSkill != null) return;
+        // LOCKED IF PERFORMING A SKILL
         Move();
-        Shoot();
-    }
-
-    // TODO: ça marche pas il faut check proprement sinon ça peut cancel frame 1
-    private void LateUpdate() {
-        if (skill != null && !this.animator.GetCurrentAnimatorStateInfo(0).IsName("Skill"))
-        {
-            Debug.Log("Skill ended.");
-            skill = null;
-        }
     }
 
     private void UpdateCursorWorldPosition()
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
         }   
     }
 
-    private void LookCursor()
+    public void LookCursor()
     {
         Vector3 lookAtPoint = cursorWorldPosition;
         Vector3 dir = lookAtPoint - transform.position;
@@ -94,13 +95,9 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(dir);
     }
 
-    private Vector3 direction;
-    public Vector3 Direction {
-        get => direction;
-    }
-
     private void Move()
     {
+        animator.SetTrigger("StopSkill");
         Vector2 direction = playerInput.KeyboardMouse.Move.ReadValue<Vector2>();
         if (direction.magnitude == 0){
             animator.SetBool("IsRunning", false);
@@ -108,47 +105,33 @@ public class PlayerController : MonoBehaviour
         }
         animator.SetBool("IsRunning", true);
         this.direction = new Vector3(direction.x, 0, direction.y);
-        Move(this.direction * (isShooting||internalShootCD<internalShootInterval?shootingMovementSpeed:movementSpeed) * Time.deltaTime);
+        Move(this.direction * movementSpeed * Time.deltaTime);
+        // Look at Direction
+        transform.rotation = Quaternion.LookRotation(this.direction);
     }
 
     public void Move(Vector3 motion)
     {
-        characterController.Move(direction * (isShooting||internalShootCD<internalShootInterval?shootingMovementSpeed:movementSpeed) * Time.deltaTime);
+        characterController.Move(motion);
     }
 
-    private void OnLeftClickPerformed()
+    private void OnClickPerformed(int slot)
     {
-        cursorWorldPosition.Set(cursorWorldPosition.x, cursorWorldPosition.y + 0.15f, cursorWorldPosition.z);
-        Instantiate(ripples, cursorWorldPosition, ripples.transform.rotation);
-        isShooting = true;
-    }
-
-    private void OnLeftClickCanceled()
-    {
-        isShooting = false;
+        if (playingSkill != null) return;
+        UseSkill(skills[slot-1]);
     }
 
     private void OnSpacePerformed()
     {
-        if (skill != null) return;
+        if (playingSkill != null) return;
         UseSkill(dodge);
     }
 
-    private void Shoot()
-    {
-        if (!isShooting || internalShootCD < internalShootInterval) return;
-        internalShootCD = 0;
-        GameObject projectile = Instantiate(Projectile, transform.position, transform.rotation);
-        Vector3 lookAtPoint = cursorWorldPosition;
-        Vector3 dir = lookAtPoint - transform.position;
-        dir.y = 0;
-        projectile.transform.rotation = Quaternion.LookRotation(dir);
-    }
-
-    public void PlayAnimation(AnimationClip clip, float speed = 1)
+    public void PlayAnimation(AnimationClip clip, float time, float speed = 1)
     {
         animatorOverrideController["Skill"] = clip;
         animator.speed = speed;
+        skillRecoveryTimer = time;
         animator.SetTrigger("PlaySkill");
     }
 
@@ -156,7 +139,7 @@ public class PlayerController : MonoBehaviour
     {
         if (skill != null)
             skill.Quit(this);
-        this.skill = skill;
+        this.playingSkill = skill;
         if (skill != null)
             skill.Enter(this);
     }

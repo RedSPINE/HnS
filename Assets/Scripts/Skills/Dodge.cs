@@ -9,8 +9,11 @@ public class Dodge : ScrSkill
     public float cooldown;
     private float cooldownCounter;
     public float cancelWindow;
-    public float speed;
     public float invulnerabilityDuration;
+
+    public float speed;
+    public AnimationCurve displacement;
+    private float internalCounter = 0;
 
     private Vector3 direction;
 
@@ -19,15 +22,20 @@ public class Dodge : ScrSkill
         throw new System.NotImplementedException();
     }
 
-    public override void OnUpdate(PlayerController controller)
+    protected override void OnUpdate(PlayerController controller)
     {
-        controller.Move(direction.normalized * speed * Time.deltaTime);
+        internalCounter += Time.deltaTime;
+        var dist = displacement.Evaluate(internalCounter / skillDuration) * Time.deltaTime * 100;
+        // Debug.Log("Dist:" + dist.ToString());
+        controller.Move(direction.normalized * displacement.Evaluate(internalCounter / skillDuration) * Time.deltaTime);
         return;
     }
 
     protected override void OnEnter(PlayerController controller)
     {
         direction = controller.Direction;
+        internalCounter = 0;
+        controller.transform.rotation = Quaternion.LookRotation(direction);
         return;
     }
 }

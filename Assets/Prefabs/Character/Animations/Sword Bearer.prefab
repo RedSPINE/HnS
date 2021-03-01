@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!143 &1185072320040899590
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3910830975007472997}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0
+  m_SkinWidth: 0.001
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &8335263411504109097
 Animator:
   serializedVersion: 3
@@ -19,19 +37,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7985700716310933614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3910830975007472997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6841bcf585586734b89a0f55dea4389b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ripples: {fileID: 6739358919607700633, guid: 656327d87a3278d40833c090f0887ef4, type: 3}
 --- !u!114 &7101211793702300262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,30 +50,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill: {fileID: 0}
-  dodge: {fileID: 11400000, guid: c67b2dd409f2a4c46907d49739047453, type: 2}
+  dodge: {fileID: 11400000, guid: 1ae7081fce9701a429f0e46bc49b17bd, type: 2}
+  skillRecoveryTimer: 0
   movementSpeed: 7
   shootingMovementSpeed: 4
   ripples: {fileID: 6739358919607700633, guid: 656327d87a3278d40833c090f0887ef4, type: 3}
   Projectile: {fileID: 5063601022101399011, guid: 600be46e9f2b51a4eb82b27fb544e34d, type: 3}
   internalShootInterval: 0.2
---- !u!143 &1185072320040899590
-CharacterController:
+--- !u!114 &7985700716310933614
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3910830975007472997}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0
-  m_SkinWidth: 0.001
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6841bcf585586734b89a0f55dea4389b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ripples: {fileID: 6739358919607700633, guid: 656327d87a3278d40833c090f0887ef4, type: 3}
 --- !u!1001 &4217473565175775284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82,7 +83,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df3af82ab9d825047bdcb754a5570801, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df3af82ab9d825047bdcb754a5570801, type: 3}
       propertyPath: m_LocalPosition.z
