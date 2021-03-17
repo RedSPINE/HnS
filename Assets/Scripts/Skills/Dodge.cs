@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-[CreateAssetMenu(fileName = "Dodge", menuName = "ScriptableObjects/Skills/Dodge")]
+[CreateAssetMenu(fileName = "Dodge", menuName = "ScriptableObjects/Dodge")]
 public class Dodge : ScrSkill
 {
     public float cooldown;
     private float cooldownCounter;
-    public float cancelWindow;
     public float invulnerabilityDuration;
-
-    public float speed;
     public AnimationCurve displacement;
     private float internalCounter = 0;
 
@@ -19,7 +16,7 @@ public class Dodge : ScrSkill
 
     public override void HandleInput()
     {
-        throw new System.NotImplementedException();
+        return;
     }
 
     protected override void OnUpdate(PlayerController controller)

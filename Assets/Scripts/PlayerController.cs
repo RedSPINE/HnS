@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,28 +53,23 @@ public class PlayerController : MonoBehaviour
         //Debug.Log($"Skill?{skill!=null} Playing?{this.animator.GetCurrentAnimatorStateInfo(0).IsName("Skill")}");
         internalRippleCD += Time.deltaTime;
         UpdateCursorWorldPosition();
-
+        Move();
         if (playingSkill != null) // A skill is being used
         {
             playingSkill.SkillUpdate(this);
-            Debug.Log("NormalizedTime: " + this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime.ToString());
-            if (this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.999f)
+            Debug.Log(this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime.ToString());
+            // if (this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f)
+            // {
+            //     Debug.Log("A");
+            //     UseSkill(null);
+            // }            
+            skillRecoveryTimer -= Time.deltaTime;
+            if (skillRecoveryTimer <= 0)
             {
                 UseSkill(null);
-                // animator.SetTrigger("StopSkill");
+                animator.SetTrigger("StopSkill");
             }
-            if (skillRecoveryTimer > 0)
-            {    
-                skillRecoveryTimer -= Time.deltaTime;
-                if (skillRecoveryTimer <= 0)
-                {
-                    UseSkill(null);
-                }
-            }            
-        }
-        if (playingSkill != null) return;
-        // LOCKED IF PERFORMING A SKILL
-        Move();
+        }       
     }
 
     private void UpdateCursorWorldPosition()
@@ -97,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        animator.SetTrigger("StopSkill");
+        if (playingSkill != null) return;
         Vector2 direction = playerInput.KeyboardMouse.Move.ReadValue<Vector2>();
         if (direction.magnitude == 0){
             animator.SetBool("IsRunning", false);
@@ -117,6 +113,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnClickPerformed(int slot)
     {
+        // LOCKED IF PERFORMING A SKILL
         if (playingSkill != null) return;
         UseSkill(skills[slot-1]);
     }
@@ -127,20 +124,21 @@ public class PlayerController : MonoBehaviour
         UseSkill(dodge);
     }
 
-    public void PlayAnimation(AnimationClip clip, float time, float speed = 1)
+    public void PlaySkillAnimation(AnimationClip clip, float time, float speed = 1)
     {
         animatorOverrideController["Skill"] = clip;
         animator.speed = speed;
+        if (time==-1) time = clip.length;
         skillRecoveryTimer = time;
         animator.SetTrigger("PlaySkill");
     }
 
     public void UseSkill(ScrSkill skill)
     {
-        if (skill != null)
-            skill.Quit(this);
+        if (playingSkill != null)
+            playingSkill.Quit(this);
         this.playingSkill = skill;
-        if (skill != null)
-            skill.Enter(this);
+        if (playingSkill != null)
+            playingSkill.Enter(this);
     }
 }

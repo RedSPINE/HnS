@@ -19,10 +19,14 @@ MonoBehaviour:
   animation: {fileID: 7400000, guid: d0751ababc1f50947aa6be9ea48f3bea, type: 2}
   animationSpeed: 1.3
   skillDuration: 0.6
+  startupCancelWindow: 0
+  startupCancelWindowStart: 0
+  startupCancelWindowEnd: 0
+  recoveryCancelWindow: 0
+  recoveryCancelWindowStart: 0
+  recoveryCancelWindowEnd: 0
   cooldown: 1
-  cancelWindow: 0
   invulnerabilityDuration: 0
-  speed: 1
   displacement:
     serializedVersion: 2
     m_Curve:
