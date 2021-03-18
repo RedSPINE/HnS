@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -11,11 +12,14 @@ public abstract class ScrSkill : ScriptableObject
     public AnimationClip animation;
     public float animationSpeed = 1;
     [HideInInspector] public float skillDuration = -1;
+    
+    [SerializeField] protected bool lookCursor = true;
+    [HideInInspector] protected Vector3 direction;
 
-    public int startupCancelWindowStart = 0;
-    public int startupCancelWindowEnd = 0;
-    public int recoveryCancelWindowStart = 0;
-    public int recoveryCancelWindowEnd = 0;
+    [SerializeField] protected int startupCancelWindowStart = 0;
+    [SerializeField] protected int startupCancelWindowEnd = 0;
+    [SerializeField] protected int recoveryCancelWindowStart = 0;
+    [SerializeField] protected int recoveryCancelWindowEnd = 0;
 
     // Implement the State Pattern
     public abstract void HandleInput();
@@ -25,6 +29,7 @@ public abstract class ScrSkill : ScriptableObject
     public virtual void Enter(PlayerController controller)
     {
         skillDuration = animation.length/animationSpeed;
+        if (lookCursor) direction = controller.LookCursor();
         OnEnter(controller);
         controller.PlaySkillAnimation(animation, skillDuration, animationSpeed);
     }
@@ -39,7 +44,7 @@ public abstract class ScrSkill : ScriptableObject
         return;
     }
 
-    public bool isCancelable(float normalizedTime)
+    public bool IsCancelable(float normalizedTime)
     {
         return false;
     }

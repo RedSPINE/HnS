@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Guillotine", menuName = "ScriptableObjects/Skills/Guillotine")]
-public class Guillotine : ScrSkill
+[CreateAssetMenu(fileName = "Pursuit", menuName = "ScriptableObjects/Skills/Pursuit")]
+public class Pursuit : ScrSkill
 {
+    public AnimationCurve displacement;
     private float internalCounter = 0;
 
     public override void HandleInput()
@@ -14,12 +15,14 @@ public class Guillotine : ScrSkill
 
     protected override void OnEnter(PlayerController controller)
     {
+        internalCounter = 0;
         return;
     }
     
     protected override void OnUpdate(PlayerController controller)
     {
         internalCounter += Time.deltaTime;
+        controller.Move(direction.normalized * displacement.Evaluate(internalCounter / skillDuration) * Time.deltaTime);
         return;
     }
 }

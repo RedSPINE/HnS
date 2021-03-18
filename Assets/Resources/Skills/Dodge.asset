@@ -17,8 +17,9 @@ MonoBehaviour:
   toolTip: Evades in a target direction, becoming invulnerable in the first animation
     frames.
   animation: {fileID: 7400000, guid: d0751ababc1f50947aa6be9ea48f3bea, type: 2}
-  animationSpeed: 1.3
-  skillDuration: 0.9743591
+  animationSpeed: 1
+  skillDuration: 1.2666668
+  lookCursor: 0
   startupCancelWindowStart: 0
   startupCancelWindowEnd: 0
   recoveryCancelWindowStart: 0
@@ -38,8 +39,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 1
     - serializedVersion: 3
-      time: 0.454907
-      value: 10.061867
+      time: 0.38332802
+      value: 9.430824
       inSlope: -24.635004
       outSlope: -24.635004
       tangentMode: 0
@@ -47,8 +48,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.6895976
-      value: 1.7300978
+      time: 0.52926683
+      value: 1.9495828
       inSlope: -4.220645
       outSlope: -4.220645
       tangentMode: 0

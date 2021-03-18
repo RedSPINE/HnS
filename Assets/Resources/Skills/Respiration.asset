@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d89caab768e02e4292b62fe9ff26a71, type: 3}
+  m_Name: Respiration
+  m_EditorClassIdentifier: 
+  icon: {fileID: 1272625545277882964, guid: a2653f26be073204c95bfd2d10d938f3, type: 3}
+  skillName: Respiration
+  toolTip: Channels for a long duration. If it completes, gain a damage buff.
+  animation: {fileID: 7400000, guid: 2ac6ced20e9d84d4a98a71d4e775c663, type: 2}
+  animationSpeed: 1
+  skillDuration: -1
+  lookCursor: 0
+  startupCancelWindowStart: 0
+  startupCancelWindowEnd: 0
+  recoveryCancelWindowStart: 0
+  recoveryCancelWindowEnd: 0

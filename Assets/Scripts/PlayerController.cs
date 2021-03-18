@@ -92,12 +92,13 @@ public class PlayerController : MonoBehaviour
         }   
     }
 
-    public void LookCursor()
+    public Vector3 LookCursor()
     {
         Vector3 lookAtPoint = cursorWorldPosition;
         Vector3 dir = lookAtPoint - transform.position;
         dir.y = 0;
         transform.rotation = Quaternion.LookRotation(dir);
+        return dir;
     }
 
     private void Move()

@@ -11,7 +11,6 @@ public class Dodge : ScrSkill
     public float invulnerabilityDuration;
     public AnimationCurve displacement;
     private float internalCounter = 0;
-    private Vector3 direction;
 
     public override void HandleInput()
     {
