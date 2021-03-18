@@ -10,9 +10,14 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private CharacterController characterController;
     private Vector3 cursorWorldPosition;
+    public Vector3 CursorWorldPosition
+    {
+        get => cursorWorldPosition;
+    }
     private Plane playerPlane;
     private Animator animator;
     private AnimatorOverrideController animatorOverrideController;
+    
     private Vector3 direction;
     public Vector3 Direction {
         get => direction;
@@ -57,7 +62,7 @@ public class PlayerController : MonoBehaviour
         if (playingSkill != null) // A skill is being used
         {
             playingSkill.SkillUpdate(this);
-            Debug.Log(this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime.ToString());
+            // Debug.Log(this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime.ToString());
             // if (this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f)
             // {
             //     Debug.Log("A");
@@ -69,7 +74,11 @@ public class PlayerController : MonoBehaviour
                 UseSkill(null);
                 animator.SetTrigger("StopSkill");
             }
-        }       
+        } 
+        else
+        {
+            animator.ResetTrigger("StopSkill");
+        }
     }
 
     private void UpdateCursorWorldPosition()

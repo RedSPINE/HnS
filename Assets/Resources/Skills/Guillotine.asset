@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2309ec497453e734eba36633c80b080f, type: 3}
+  m_Name: Guillotine
+  m_EditorClassIdentifier: 
+  icon: {fileID: -2882701144099320679, guid: a2653f26be073204c95bfd2d10d938f3, type: 3}
+  skillName: Guillotine
+  toolTip: After a long startup, inflicts enormous damage on a thin area.
+  animation: {fileID: 7400000, guid: 77b12bf355fd8974f829f86d968d0a34, type: 2}
+  animationSpeed: 1.5
+  skillDuration: 3.1888893
+  startupCancelWindowStart: 0
+  startupCancelWindowEnd: 0
+  recoveryCancelWindowStart: 0
+  recoveryCancelWindowEnd: 0

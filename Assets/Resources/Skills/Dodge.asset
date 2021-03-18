@@ -12,17 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a076d9cf22d488045bc02b84e0f51fc9, type: 3}
   m_Name: Dodge
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 589a8a29a9b5d1f4bbcc523cb429a10f, type: 3}
+  icon: {fileID: 0}
   skillName: Dodge
   toolTip: Evades in a target direction, becoming invulnerable in the first animation
     frames.
   animation: {fileID: 7400000, guid: d0751ababc1f50947aa6be9ea48f3bea, type: 2}
   animationSpeed: 1.3
-  skillDuration: 0.6
-  startupCancelWindow: 0
+  skillDuration: 0.9743591
   startupCancelWindowStart: 0
   startupCancelWindowEnd: 0
-  recoveryCancelWindow: 0
   recoveryCancelWindowStart: 0
   recoveryCancelWindowEnd: 0
   cooldown: 1
@@ -31,8 +29,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0027097315
-      value: 20.16438
+      time: 0.012158737
+      value: 10.167259
       inSlope: -2.209938
       outSlope: -2.209938
       tangentMode: 0
@@ -40,8 +38,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 1
     - serializedVersion: 3
-      time: 0.29417092
-      value: 18.49282
+      time: 0.454907
+      value: 10.061867
       inSlope: -24.635004
       outSlope: -24.635004
       tangentMode: 0

@@ -10,9 +10,8 @@ public abstract class ScrSkill : ScriptableObject
     [TextArea] public string toolTip;
     public AnimationClip animation;
     public float animationSpeed = 1;
-    public float skillDuration = -1;
+    [HideInInspector] public float skillDuration = -1;
 
-    public int frameCount;
     public int startupCancelWindowStart = 0;
     public int startupCancelWindowEnd = 0;
     public int recoveryCancelWindowStart = 0;
@@ -25,6 +24,7 @@ public abstract class ScrSkill : ScriptableObject
 
     public virtual void Enter(PlayerController controller)
     {
+        skillDuration = animation.length/animationSpeed;
         OnEnter(controller);
         controller.PlaySkillAnimation(animation, skillDuration, animationSpeed);
     }

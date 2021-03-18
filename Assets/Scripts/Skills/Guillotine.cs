@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Dodge", menuName = "ScriptableObjects/Skills/SwordSlash")]
-public class SwordSlash : ScrSkill
+[CreateAssetMenu(fileName = "Guillotine", menuName = "ScriptableObjects/Skills/Guillotine")]
+public class Guillotine : ScrSkill
 {
-    public AnimationCurve displacement;
     private float internalCounter = 0;
-    private Vector3 direction;
 
     public override void HandleInput()
     {
@@ -16,7 +14,7 @@ public class SwordSlash : ScrSkill
 
     protected override void OnEnter(PlayerController controller)
     {
-        direction = controller.CursorWorldPosition;
+        var direction = controller.CursorWorldPosition;
         internalCounter = 0;
         controller.transform.rotation = Quaternion.LookRotation(direction);
         return;
@@ -25,7 +23,6 @@ public class SwordSlash : ScrSkill
     protected override void OnUpdate(PlayerController controller)
     {
         internalCounter += Time.deltaTime;
-        controller.Move(direction.normalized * displacement.Evaluate(internalCounter / skillDuration) * Time.deltaTime);
         return;
     }
 }
