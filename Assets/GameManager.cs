@@ -4,27 +4,33 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
+    [SerializeField] private SkillTable skillTable = null;
+    private SkillTableUI skillTableUI;
     private List<ScrSkill> skills;
 
     // Start is called before the first frame update
     void Start()
     {
-        var loadSkills = Resources.LoadAll<ScrSkill>("Skills/");
-        skills = new List<ScrSkill>(loadSkills);
-        Debug.Log(skills.ToString());
+        LogSkills();
+        skillTableUI = FindObjectOfType<SkillTableUI>();
+        skillTableUI.EmptySkillList();
+        LoadSkills();
+        skillTableUI.Unselect();
     }
 
     // Update is called once per frame
-    void Update()
+    private void LoadSkills()
     {
-        
+        foreach (ScrSkill skill in skillTable.skills)
+        {
+            skillTableUI.AddSkill(skill);
+        }   
     }
 
     private void LogSkills()
     {
         String log = "List of Skills :\n";
-        foreach (var skill in skills)
+        foreach (var skill in skillTable.skills)
         {
             log += skill.skillName + "\n";
         }

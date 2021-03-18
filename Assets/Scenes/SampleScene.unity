@@ -3661,6 +3661,11 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!224 &1357972910 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6548042593973489512, guid: e636c58b7879c144380271aed843f8dd, type: 3}
+  m_PrefabInstance: {fileID: 6548042592617745094}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1358489997 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6548042593972986699, guid: e636c58b7879c144380271aed843f8dd, type: 3}
@@ -7428,10 +7433,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Game Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 5757270260135620099, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2800000, guid: d88596134c72c47b99d7d55583f4c6bf, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
 --- !u!1001 &6548042592617745094
@@ -7442,9 +7443,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 1891428327}
     m_Modifications:
     - target: {fileID: 6490687258849345174, guid: e636c58b7879c144380271aed843f8dd, type: 3}
-      propertyPath: skillButtonPrefab
+      propertyPath: contentTarget
       value: 
-      objectReference: {fileID: 5064332103034070398, guid: 97b74e5c05176464ab9b19afb5887bb9, type: 3}
+      objectReference: {fileID: 1357972910}
     - target: {fileID: 6548042593131778832, guid: e636c58b7879c144380271aed843f8dd, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
