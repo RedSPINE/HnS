@@ -18,3 +18,9 @@ MonoBehaviour:
   animation: {fileID: 7400000, guid: 22cbad0e7b08c694493423eedc6f3e61, type: 2}
   animationSpeed: 1
   skillDuration: -1
+  startupCancelWindow: 0
+  startupCancelWindowStart: 0
+  startupCancelWindowEnd: 0
+  recoveryCancelWindow: 1
+  recoveryCancelWindowStart: 0
+  recoveryCancelWindowEnd: 0

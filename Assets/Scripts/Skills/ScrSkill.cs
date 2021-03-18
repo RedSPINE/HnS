@@ -12,12 +12,11 @@ public abstract class ScrSkill : ScriptableObject
     public float animationSpeed = 1;
     public float skillDuration = -1;
 
-    public bool startupCancelWindow = false;
-    [Range(0, 1)] public float startupCancelWindowStart = 0;
-    [Range(0, 1)] public float startupCancelWindowEnd = 0;
-    public bool recoveryCancelWindow = false;
-    [Range(0, 1)] public float recoveryCancelWindowStart = 0;
-    [Range(0, 1)] public float recoveryCancelWindowEnd = 0;
+    public int frameCount;
+    public int startupCancelWindowStart = 0;
+    public int startupCancelWindowEnd = 0;
+    public int recoveryCancelWindowStart = 0;
+    public int recoveryCancelWindowEnd = 0;
 
     // Implement the State Pattern
     public abstract void HandleInput();
@@ -38,5 +37,10 @@ public abstract class ScrSkill : ScriptableObject
     public virtual void Quit(PlayerController controller)
     {
         return;
+    }
+
+    public bool isCancelable(float normalizedTime)
+    {
+        return false;
     }
 }
