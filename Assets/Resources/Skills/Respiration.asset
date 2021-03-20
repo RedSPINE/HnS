@@ -17,9 +17,16 @@ MonoBehaviour:
   toolTip: Channels for a long duration. If it completes, gain a damage buff.
   animation: {fileID: 7400000, guid: 2ac6ced20e9d84d4a98a71d4e775c663, type: 2}
   animationSpeed: 1
-  skillDuration: -1
   lookCursor: 0
+  dodgeCancelOnly: 1
+  displacement:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  skillDuration: 3.266667
   startupCancelWindowStart: 0
-  startupCancelWindowEnd: 0
+  startupCancelWindowEnd: 1
   recoveryCancelWindowStart: 0
   recoveryCancelWindowEnd: 0

@@ -17,8 +17,9 @@ MonoBehaviour:
   toolTip: After a long startup, inflicts enormous damage on a thin area.
   animation: {fileID: 7400000, guid: 77b12bf355fd8974f829f86d968d0a34, type: 2}
   animationSpeed: 1.5
+  lookCursor: 1
   skillDuration: 3.1888893
-  startupCancelWindowStart: 0
-  startupCancelWindowEnd: 0
-  recoveryCancelWindowStart: 0
-  recoveryCancelWindowEnd: 0
+  startupCancelWindowStart: 0.1
+  startupCancelWindowEnd: 0.25
+  recoveryCancelWindowStart: 0.75
+  recoveryCancelWindowEnd: 1

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -55,19 +51,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        //Debug.Log($"Skill?{skill!=null} Playing?{this.animator.GetCurrentAnimatorStateInfo(0).IsName("Skill")}");
         internalRippleCD += Time.deltaTime;
         UpdateCursorWorldPosition();
         Move();
         if (playingSkill != null) // A skill is being used
         {
             playingSkill.SkillUpdate(this);
-            // Debug.Log(this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime.ToString());
-            // if (this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f)
-            // {
-            //     Debug.Log("A");
-            //     UseSkill(null);
-            // }            
             skillRecoveryTimer -= Time.deltaTime;
             if (skillRecoveryTimer <= 0)
             {
@@ -103,14 +92,15 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if (playingSkill != null) return;
         Vector2 direction = playerInput.KeyboardMouse.Move.ReadValue<Vector2>();
+        if(direction != Vector2.zero)
+            this.direction = new Vector3(direction.x, 0, direction.y);
+        if (playingSkill != null) return;
         if (direction.magnitude == 0){
             animator.SetBool("IsRunning", false);
             return;
         }
         animator.SetBool("IsRunning", true);
-        this.direction = new Vector3(direction.x, 0, direction.y);
         Move(this.direction * movementSpeed * Time.deltaTime);
         // Look at Direction
         transform.rotation = Quaternion.LookRotation(this.direction);
@@ -124,13 +114,14 @@ public class PlayerController : MonoBehaviour
     private void OnClickPerformed(int slot)
     {
         // LOCKED IF PERFORMING A SKILL
-        if (playingSkill != null) return;
+        if (playingSkill != null && !playingSkill.IsCancelable(this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime)) return;
         UseSkill(skills[slot-1]);
     }
 
     private void OnSpacePerformed()
     {
-        if (playingSkill != null) return;
+        if (playingSkill != null && !playingSkill.IsCancelable(this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime, true)) return;
+        if (playingSkill != null && playerInput.KeyboardMouse.Move.ReadValue<Vector2>() == Vector2.zero) this.direction = playingSkill.Direction;
         UseSkill(dodge);
     }
 

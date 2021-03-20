@@ -1,25 +1,34 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class ScrSkill : ScriptableObject
 {
+    [Header("Data")]
     public Sprite icon;
     public string skillName;
     [TextArea] public string toolTip;
     public AnimationClip animation;
     public float animationSpeed = 1;
-    [HideInInspector] public float skillDuration = -1;
-    
-    [SerializeField] protected bool lookCursor = true;
-    [HideInInspector] protected Vector3 direction;
 
-    [SerializeField] protected int startupCancelWindowStart = 0;
-    [SerializeField] protected int startupCancelWindowEnd = 0;
-    [SerializeField] protected int recoveryCancelWindowStart = 0;
-    [SerializeField] protected int recoveryCancelWindowEnd = 0;
+    [Header("Movement and Cancel options")]
+    [SerializeField] protected bool lookCursor = true;
+    [Tooltip("If this parameter is true, the skill can only be canceled by a dodge.")]
+    [SerializeField] protected bool dodgeCancelOnly = false;
+    [SerializeField] protected AnimationCurve displacement;
+
+    [HideInInspector] public float skillDuration = -1;
+    [HideInInspector] protected Vector3 direction;
+    public Vector3 Direction {
+        get => direction;
+    }
+    
+    protected float internalCounter = 0;
+
+    
+
+    [SerializeField][Range(0,1)] protected float startupCancelWindowStart = 0;
+    [SerializeField][Range(0,1)] protected float startupCancelWindowEnd = 0;
+    [SerializeField][Range(0,1)] protected float recoveryCancelWindowStart = 0;
+    [SerializeField][Range(0,1)] protected float recoveryCancelWindowEnd = 0;
 
     // Implement the State Pattern
     public abstract void HandleInput();
@@ -28,14 +37,21 @@ public abstract class ScrSkill : ScriptableObject
 
     public virtual void Enter(PlayerController controller)
     {
+        internalCounter = 0;
         skillDuration = animation.length/animationSpeed;
-        if (lookCursor) direction = controller.LookCursor();
+        if (lookCursor) 
+        {
+            direction = controller.LookCursor();
+        }
         OnEnter(controller);
         controller.PlaySkillAnimation(animation, skillDuration, animationSpeed);
     }
 
     public virtual void SkillUpdate(PlayerController controller)
     {
+        internalCounter += Time.deltaTime;
+        var dist = displacement.Evaluate(internalCounter / skillDuration) * Time.deltaTime * 100;
+        controller.Move(direction.normalized * displacement.Evaluate(internalCounter / skillDuration) * Time.deltaTime);
         OnUpdate(controller);
     }
 
@@ -44,8 +60,10 @@ public abstract class ScrSkill : ScriptableObject
         return;
     }
 
-    public bool IsCancelable(float normalizedTime)
+    public bool IsCancelable(float normalizedTime, bool dodge = false)
     {
-        return false;
+        if (dodgeCancelOnly && !dodge) return false;
+        return (startupCancelWindowStart < normalizedTime && normalizedTime < startupCancelWindowEnd)
+        || (recoveryCancelWindowStart < normalizedTime && normalizedTime < recoveryCancelWindowEnd);
     }
 }

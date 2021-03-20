@@ -17,12 +17,12 @@ MonoBehaviour:
   toolTip: Dashes and hit in a small hitbox at the end of the movement.
   animation: {fileID: 7400000, guid: 4fec4f6a708e2f64b94d513d7da55b8e, type: 2}
   animationSpeed: 1.2
-  skillDuration: 1.5555556
   lookCursor: 1
+  skillDuration: 1.5555556
   startupCancelWindowStart: 0
   startupCancelWindowEnd: 0
-  recoveryCancelWindowStart: 0
-  recoveryCancelWindowEnd: 0
+  recoveryCancelWindowStart: 0.825
+  recoveryCancelWindowEnd: 1
   displacement:
     serializedVersion: 2
     m_Curve:
@@ -36,8 +36,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.21169204
     - serializedVersion: 3
-      time: 0.30033243
-      value: 9.245407
+      time: 0.4504484
+      value: 13.643829
       inSlope: -5.739853
       outSlope: -5.739853
       tangentMode: 0
