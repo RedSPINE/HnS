@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class ScrSkill : ScriptableObject
+public abstract class SkillSO : ScriptableObject
 {
     [Header("Data")]
     public Sprite icon;
@@ -16,19 +16,21 @@ public abstract class ScrSkill : ScriptableObject
     [SerializeField] protected AnimationCurve displacement;
 
     [HideInInspector] public float skillDuration = -1;
-    [HideInInspector] protected Vector3 direction;
+    protected Vector3 direction;
     public Vector3 Direction {
         get => direction;
     }
+
+    [System.Serializable]
+    public struct CancelWindow { 
+        [Tooltip("If this parameter is true, the skill can only be canceled by a dodge.")]
+        public bool dodgeOnly;
+        [Range(0,1)] public float start;
+        [Range(0,1)] public float end;
+    }
+    [SerializeField] protected CancelWindow[] cancelWindows;
     
     protected float internalCounter = 0;
-
-    
-
-    [SerializeField][Range(0,1)] protected float startupCancelWindowStart = 0;
-    [SerializeField][Range(0,1)] protected float startupCancelWindowEnd = 0;
-    [SerializeField][Range(0,1)] protected float recoveryCancelWindowStart = 0;
-    [SerializeField][Range(0,1)] protected float recoveryCancelWindowEnd = 0;
 
     // Implement the State Pattern
     public abstract void HandleInput();
@@ -40,9 +42,9 @@ public abstract class ScrSkill : ScriptableObject
         internalCounter = 0;
         skillDuration = animation.length/animationSpeed;
         if (lookCursor) 
-        {
             direction = controller.LookCursor();
-        }
+        else
+            direction = controller.Direction;
         OnEnter(controller);
         controller.PlaySkillAnimation(animation, skillDuration, animationSpeed);
     }
@@ -51,7 +53,7 @@ public abstract class ScrSkill : ScriptableObject
     {
         internalCounter += Time.deltaTime;
         var dist = displacement.Evaluate(internalCounter / skillDuration) * Time.deltaTime * 100;
-        controller.Move(direction.normalized * displacement.Evaluate(internalCounter / skillDuration) * Time.deltaTime);
+        controller.Move(direction.normalized * displacement.Evaluate(internalCounter / skillDuration) * Time.deltaTime / skillDuration);
         OnUpdate(controller);
     }
 
@@ -62,8 +64,12 @@ public abstract class ScrSkill : ScriptableObject
 
     public bool IsCancelable(float normalizedTime, bool dodge = false)
     {
-        if (dodgeCancelOnly && !dodge) return false;
-        return (startupCancelWindowStart < normalizedTime && normalizedTime < startupCancelWindowEnd)
-        || (recoveryCancelWindowStart < normalizedTime && normalizedTime < recoveryCancelWindowEnd);
+        foreach (CancelWindow cancelWindow in cancelWindows)
+        {
+            if(!dodge && cancelWindow.dodgeOnly) continue;
+            if(cancelWindow.start < normalizedTime && normalizedTime < cancelWindow.end) return true;
+        }
+        return false;
     }
 }
+

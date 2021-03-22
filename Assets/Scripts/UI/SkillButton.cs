@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class SkillButton : MonoBehaviour, IPointerClickHandler 
 {
     private PlayerController controller;
-    [HideInInspector] public ScrSkill skill = null;
+    [HideInInspector] public SkillSO skill = null;
     
     [SerializeField] private Image marker1 = null;
     [SerializeField] private Image marker2 = null;

@@ -26,6 +26,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   skillDuration: 3.266667
+  cancelWindows:
+  - dodgeOnly: 1
+    start: 0
+    end: 1
   startupCancelWindowStart: 0
   startupCancelWindowEnd: 1
   recoveryCancelWindowStart: 0

@@ -16,13 +16,9 @@ MonoBehaviour:
   skillName: Pursuit
   toolTip: Dashes and hit in a small hitbox at the end of the movement.
   animation: {fileID: 7400000, guid: 4fec4f6a708e2f64b94d513d7da55b8e, type: 2}
-  animationSpeed: 1.2
+  animationSpeed: 1.25
   lookCursor: 1
-  skillDuration: 1.5555556
-  startupCancelWindowStart: 0
-  startupCancelWindowEnd: 0
-  recoveryCancelWindowStart: 0.825
-  recoveryCancelWindowEnd: 1
+  dodgeCancelOnly: 0
   displacement:
     serializedVersion: 2
     m_Curve:
@@ -65,3 +61,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  skillDuration: 1.4933335
+  cancelWindows:
+  - dodgeOnly: 0
+    start: 0.825
+    end: 1

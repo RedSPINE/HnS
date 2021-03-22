@@ -16,7 +16,7 @@ public class SkillTableUI : MonoBehaviour
         controller = FindObjectOfType<PlayerController>();
     }
 
-    public void AddSkill(ScrSkill skill)
+    public void AddSkill(SkillSO skill)
     {
         GameObject skillButtonGO = Instantiate(skillButtonPrefab, Vector3.zero, Quaternion.identity, contentTarget);
         skillButtonGO.GetComponent<SkillButton>().skill = skill;
@@ -31,7 +31,7 @@ public class SkillTableUI : MonoBehaviour
         }
     }
 
-    public void EquipSkill(int index, ScrSkill skill)
+    public void EquipSkill(int index, SkillSO skill)
     {
         controller.skills[index-1] = skill;
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Guillotine", menuName = "ScriptableObjects/Skills/Guillotine")]
-public class Guillotine : ScrSkill
+public class Guillotine : SkillSO
 {
     public override void HandleInput()
     {

@@ -18,7 +18,21 @@ MonoBehaviour:
   animation: {fileID: 7400000, guid: 77b12bf355fd8974f829f86d968d0a34, type: 2}
   animationSpeed: 1.5
   lookCursor: 1
+  dodgeCancelOnly: 0
+  displacement:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   skillDuration: 3.1888893
+  cancelWindows:
+  - dodgeOnly: 1
+    start: 0.1
+    end: 0.25
+  - dodgeOnly: 0
+    start: 0.75
+    end: 1
   startupCancelWindowStart: 0.1
   startupCancelWindowEnd: 0.25
   recoveryCancelWindowStart: 0.75

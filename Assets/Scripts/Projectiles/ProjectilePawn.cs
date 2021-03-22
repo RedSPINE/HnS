@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Globalization;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class ProjectilePawn : MonoBehaviour
 {
+    public ProjectileSO projectile;
+    public GameObject explosion;
 
     [SerializeField] private float lifetime = 0f;
     private float internalLifetime;
@@ -26,6 +27,12 @@ public class Projectile : MonoBehaviour
 
     private void AutoDestroy()
     {
+        Instantiate(explosion, transform.position, transform.rotation);
         Destroy(this.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        Debug.Log(other.name);
+        AutoDestroy();
     }
 }

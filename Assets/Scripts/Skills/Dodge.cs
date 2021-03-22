@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 
 [CreateAssetMenu(fileName = "Dodge", menuName = "ScriptableObjects/Dodge")]
-public class Dodge : ScrSkill
+public class Dodge : SkillSO
 {
     public float invulnerabilityDuration;
 

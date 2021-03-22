@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     }
     
     [Header("Animator")]
-    [SerializeField] private ScrSkill playingSkill = null;
+    [SerializeField] private SkillSO playingSkill = null;
     [SerializeField] private Dodge dodge = default;
     [SerializeField] private float skillRecoveryTimer = 0;
     
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private float internalRippleCD = 0f;
     
     [Header("Combo System")]
-    public ScrSkill[] skills;
+    public SkillSO[] skills;
 
     // Start is called before the first frame update
     private void Start()
@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = lookAtPoint - transform.position;
         dir.y = 0;
         transform.rotation = Quaternion.LookRotation(dir);
+        direction = dir;
         return dir;
     }
 
@@ -134,10 +135,11 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("PlaySkill");
     }
 
-    public void UseSkill(ScrSkill skill)
+    public void UseSkill(SkillSO skill)
     {
         if (playingSkill != null)
             playingSkill.Quit(this);
+        animator.speed = 1;
         this.playingSkill = skill;
         if (playingSkill != null)
             playingSkill.Enter(this);

@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private SkillTable skillTable = null;
     private SkillTableUI skillTableUI;
-    private List<ScrSkill> skills;
+    private List<SkillSO> skills;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void LoadSkills()
     {
-        foreach (ScrSkill skill in skillTable.skills)
+        foreach (SkillSO skill in skillTable.skills)
         {
             skillTableUI.AddSkill(skill);
         }   

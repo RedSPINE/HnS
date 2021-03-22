@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Respiration", menuName = "ScriptableObjects/Skills/Respiration")]
-public class Respiration : ScrSkill
+public class Respiration : SkillSO
 {
 
     public override void HandleInput()

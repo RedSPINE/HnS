@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SwordSlash", menuName = "ScriptableObjects/Skills/SwordSlash")]
-public class SwordSlash : ScrSkill
+public class SwordSlash : SkillSO
 {
     public override void HandleInput()
     {

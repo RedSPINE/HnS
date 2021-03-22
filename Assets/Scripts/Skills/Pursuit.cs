@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Pursuit", menuName = "ScriptableObjects/Skills/Pursuit")]
-public class Pursuit : ScrSkill
+public class Pursuit : SkillSO
 {
     public override void HandleInput()
     {
