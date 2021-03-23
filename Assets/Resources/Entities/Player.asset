@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 027f2bfeab489e24fb9a7a6e125173ea, type: 3}
-  m_Name: BaseProjectile
+  m_Script: {fileID: 11500000, guid: d243fa8fd568b864288079ae8bd1560d, type: 3}
+  m_Name: Player
   m_EditorClassIdentifier: 
-  radius: 0.25
-  explosion: {fileID: 1103929606706057616, guid: 5943d699a045bdd47b7e625534d5c99e, type: 3}
-  lifetime: 1.2
-  speed: 8
+  maximumHealth: 150
+  movementSpeed: 6

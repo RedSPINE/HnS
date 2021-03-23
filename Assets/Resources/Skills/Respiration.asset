@@ -28,9 +28,5 @@ MonoBehaviour:
   skillDuration: 3.266667
   cancelWindows:
   - dodgeOnly: 1
-    start: 0
+    start: 0.25
     end: 1
-  startupCancelWindowStart: 0
-  startupCancelWindowEnd: 1
-  recoveryCancelWindowStart: 0
-  recoveryCancelWindowEnd: 0

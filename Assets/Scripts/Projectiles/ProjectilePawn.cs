@@ -15,6 +15,12 @@ public class ProjectilePawn : MonoBehaviour
     void Start()
     {
         internalLifetime = 0f;
+        if (projectile != null)
+        {
+            explosion = projectile.Explosion;
+            speed = projectile.Speed;
+            lifetime = projectile.Lifetime;
+        }
     }
 
     // Update is called once per frame

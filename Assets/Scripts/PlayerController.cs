@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[DisallowMultipleComponent]
 public class PlayerController : MonoBehaviour
 {
     // Hidden references
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Plane playerPlane;
     private Animator animator;
     private AnimatorOverrideController animatorOverrideController;
+    private Entity entity;
     
     private Vector3 direction;
     public Vector3 Direction {
@@ -24,10 +26,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Dodge dodge = default;
     [SerializeField] private float skillRecoveryTimer = 0;
     
-    [Header("Walking")]
-    [SerializeField] private float movementSpeed = 10f;
-    private float internalRippleCD = 0f;
-    
     [Header("Combo System")]
     public SkillSO[] skills;
 
@@ -38,6 +36,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animator.runtimeAnimatorController = animatorOverrideController;
+        entity = GetComponent<Entity>();
 
         playerInput = new PlayerInput();
         playerInput.KeyboardMouse.LeftClick.performed += ctx => OnClickPerformed(1);
@@ -51,7 +50,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        internalRippleCD += Time.deltaTime;
         UpdateCursorWorldPosition();
         Move();
         if (playingSkill != null) // A skill is being used
@@ -102,7 +100,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         animator.SetBool("IsRunning", true);
-        Move(this.direction * movementSpeed * Time.deltaTime);
+        Move(this.direction * entity.MovementSpeed * Time.deltaTime);
         // Look at Direction
         transform.rotation = Quaternion.LookRotation(this.direction);
     }

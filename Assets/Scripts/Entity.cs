@@ -1,17 +1,24 @@
 ﻿using UnityEngine;
 
-public abstract class Entity: MonoBehaviour
+[DisallowMultipleComponent]
+public class Entity: MonoBehaviour
 {
-    protected virtual float health
-    {
-        get;
-        set;
-    }
+    public EntitySO entityData;
 
-    protected abstract float maxHealth
-    {
-        get;
-        set;
+    private float health;
+    public float Health { get => health; }
+
+    private float movementSpeed;
+    public float MovementSpeed { get => entityData.MovementSpeed; }
+
+    private float haste = 1;
+    public float Haste { get => haste; }
+
+    private float strength = 1;
+    public float Strength { get => strength; }
+    
+    private void Start() {
+        health = entityData.MaximumHealth;
     }
 
     public virtual void TakeDamage(float damage)

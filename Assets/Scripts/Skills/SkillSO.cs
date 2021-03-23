@@ -11,8 +11,6 @@ public abstract class SkillSO : ScriptableObject
 
     [Header("Movement and Cancel options")]
     [SerializeField] protected bool lookCursor = true;
-    [Tooltip("If this parameter is true, the skill can only be canceled by a dodge.")]
-    [SerializeField] protected bool dodgeCancelOnly = false;
     [SerializeField] protected AnimationCurve displacement;
 
     [HideInInspector] public float skillDuration = -1;
