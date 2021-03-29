@@ -69,5 +69,10 @@ public abstract class SkillSO : ScriptableObject
         }
         return false;
     }
-}
 
+    public struct HitBox
+    {
+        public float timeToFire;
+        public GameObject prefab;
+    }
+}

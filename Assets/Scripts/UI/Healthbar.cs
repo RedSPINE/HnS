@@ -12,8 +12,9 @@ public class Healthbar : MonoBehaviour
     private Image Damage;
 
     [SerializeField]
-    private float timeToUpdateDamage = 1f;
-    private float previousHealthPct = 1;
+    private float damageSpeed = 1;
+    private float targetPct;
+    private bool locked;
 
     private void Awake()
     {
@@ -30,24 +31,26 @@ public class Healthbar : MonoBehaviour
 
     private void HandleHealthChange(float pct)
     {
-        Debug.Log("HandleHealthChange");
         Health.fillAmount = pct;
-        StartCoroutine(ChangeToPct(pct));
+        targetPct = pct;
+        StartCoroutine(UpdateDamage());
     }
 
-    private IEnumerator ChangeToPct(float pct)
+    private IEnumerator UpdateDamage()
     {
-        float preChangePct = previousHealthPct;
-        float elapsed = 0f;
+        if (locked) { yield break; }
+        locked = true;
 
-        while (elapsed < timeToUpdateDamage)
+        while (Damage.fillAmount > targetPct)
         {
-            elapsed += Time.deltaTime;
-            Damage.fillAmount = Mathf.Lerp(previousHealthPct, pct, elapsed / timeToUpdateDamage);
+            var fillAmount = Damage.fillAmount;
+            fillAmount -= Time.deltaTime * damageSpeed;
+            if (fillAmount < targetPct)
+                fillAmount = targetPct;
+            Damage.fillAmount = fillAmount;
             yield return null;
         }
-        
-        previousHealthPct = pct;
-        Damage.fillAmount = pct;
+
+        locked = false;
     }
 }

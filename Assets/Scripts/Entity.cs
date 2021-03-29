@@ -12,8 +12,11 @@ public class Entity: MonoBehaviour
     private float health;
     public float Health { get => health; }
 
+    private float defense;
+    public float Defense { get => defense; }
+
     private float movementSpeed;
-    public float MovementSpeed { get => entityData.MovementSpeed; }
+    public float MovementSpeed { get => movementSpeed; }
 
     private float haste = 1;
     public float Haste { get => haste; }
@@ -21,10 +24,15 @@ public class Entity: MonoBehaviour
     private float strength = 1;
     public float Strength { get => strength; }
 
-    public float MaxHealth { get => entityData.MaximumHealth; }
+    private float maximumHealth;
+    public float MaxHealth { get => maximumHealth; }
     
     private void Start() {
-        health = entityData.MaximumHealth;
+        defense = entityData.Defense;
+        movementSpeed = entityData.MovementSpeed;
+        strength = entityData.Strength;
+        maximumHealth = entityData.MaximumHealth;
+        health = maximumHealth;
     }
 
     public virtual void TakeDamage(float damage)
