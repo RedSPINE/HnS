@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumHealth: 150
   movementSpeed: 6
+  strength: 1
+  haste: 1
+  defense: 1
