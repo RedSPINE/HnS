@@ -18,7 +18,6 @@ MonoBehaviour:
   animation: {fileID: 7400000, guid: 77b12bf355fd8974f829f86d968d0a34, type: 2}
   animationSpeed: 1.5
   lookCursor: 1
-  dodgeCancelOnly: 0
   displacement:
     serializedVersion: 2
     m_Curve: []
@@ -33,7 +32,8 @@ MonoBehaviour:
   - dodgeOnly: 0
     start: 0.75
     end: 1
-  startupCancelWindowStart: 0.1
-  startupCancelWindowEnd: 0.25
-  recoveryCancelWindowStart: 0.75
-  recoveryCancelWindowEnd: 1
+  hitBoxes:
+  - timeToFire: 0.498
+    timeToHit: 0
+    destroyOnQuit: 0
+    prefab: {fileID: 346224836964371831, guid: c53ae9333d11df1449e47c847bdba7e0, type: 3}
