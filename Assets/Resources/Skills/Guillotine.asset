@@ -17,6 +17,7 @@ MonoBehaviour:
   toolTip: After a long startup, inflicts enormous damage on a thin area.
   animation: {fileID: 7400000, guid: 77b12bf355fd8974f829f86d968d0a34, type: 2}
   animationSpeed: 1.5
+  particleSystem: {fileID: 0}
   lookCursor: 1
   displacement:
     serializedVersion: 2
@@ -32,8 +33,7 @@ MonoBehaviour:
   - dodgeOnly: 0
     start: 0.75
     end: 1
-  hitBoxes:
-  - timeToFire: 0.498
-    timeToHit: 0
+  VFXArray:
+  - timeToFire: 0.521
     destroyOnQuit: 0
     prefab: {fileID: 346224836964371831, guid: c53ae9333d11df1449e47c847bdba7e0, type: 3}
