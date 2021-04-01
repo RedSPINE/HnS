@@ -43,6 +43,18 @@ public abstract class SkillSO : ScriptableObject
         public bool IsInstanciated { get => instanciated; set => instanciated = value; }
     }
 
+    [System.Serializable]
+    public class HitBox
+    {
+        [Range(0, 1)] public float timeToFire;
+        public bool destroyOnQuit;
+        public GameObject prefab;
+        private GameObject gameObject;
+        public GameObject Go { get => gameObject; set => gameObject = value; }
+        private bool instanciated;
+        public bool IsInstanciated { get => instanciated; set => instanciated = value; }
+    }
+
     [SerializeField] protected CancelWindow[] cancelWindows;
     [SerializeField] protected VFX[] VFXArray;
 
@@ -95,12 +107,12 @@ public abstract class SkillSO : ScriptableObject
     public virtual void Quit(PlayerController controller)
     {
         Debug.Log("OnQuit !");
-        foreach (VFX hitBox in VFXArray)
+        foreach (VFX vfx in VFXArray)
         {
-            if (hitBox.destroyOnQuit) Destroy(hitBox.Go);
-            else if (hitBox.Go != null) hitBox.Go.transform.transform.SetParent(null);
-            hitBox.Go = null;
-            hitBox.IsInstanciated = false;
+            if (vfx.destroyOnQuit) Destroy(vfx.Go);
+            else if (vfx.Go != null) vfx.Go.transform.transform.SetParent(null);
+            vfx.Go = null;
+            vfx.IsInstanciated = false;
         }
         return;
     }
@@ -114,6 +126,5 @@ public abstract class SkillSO : ScriptableObject
         }
         return false;
     }
-
 
 }
