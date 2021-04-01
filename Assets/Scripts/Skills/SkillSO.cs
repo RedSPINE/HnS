@@ -35,28 +35,40 @@ public abstract class SkillSO : ScriptableObject
     public class VFX
     {
         [Range(0, 1)] public float timeToFire;
-        public bool destroyOnQuit;
+        public bool destroyOnStateQuit;
         public GameObject prefab;
         private GameObject gameObject;
         public GameObject Go { get => gameObject; set => gameObject = value; }
         private bool instanciated;
         public bool IsInstanciated { get => instanciated; set => instanciated = value; }
+
+        public void Leave()
+        {
+            if (destroyOnStateQuit) GameObject.Destroy(gameObject);
+            else if (Go != null) Go.transform.transform.SetParent(null);
+            Go = null;
+            IsInstanciated = false;
+        }
+
+        public void Instantiate(Transform transform)
+        {
+            IsInstanciated = true;
+            Quaternion rotation = prefab.transform.rotation;
+            rotation.eulerAngles.Set(rotation.x, 0, rotation.y);
+            Vector3 position = transform.position + prefab.transform.position;
+            Go = GameObject.Instantiate(prefab, transform, false);
+        }
     }
 
     [System.Serializable]
-    public class HitBox
+    public class Hitbox : VFX
     {
-        [Range(0, 1)] public float timeToFire;
-        public bool destroyOnQuit;
-        public GameObject prefab;
-        private GameObject gameObject;
-        public GameObject Go { get => gameObject; set => gameObject = value; }
-        private bool instanciated;
-        public bool IsInstanciated { get => instanciated; set => instanciated = value; }
+        [Range(0, 1)] public float timeToDestroy;
     }
 
     [SerializeField] protected CancelWindow[] cancelWindows;
     [SerializeField] protected VFX[] VFXArray;
+    [SerializeField] protected Hitbox[] Hitboxes;
 
     protected float internalCounter = 0;
 
@@ -81,7 +93,7 @@ public abstract class SkillSO : ScriptableObject
     {
         internalCounter += Time.deltaTime;
 
-        float normalizedTime = internalCounter/skillDuration;
+        float normalizedTime = internalCounter / skillDuration;
         float dist = displacement.Evaluate(normalizedTime) * Time.deltaTime;
         controller.Move(direction.normalized * dist);
 
@@ -92,11 +104,23 @@ public abstract class SkillSO : ScriptableObject
             // Instantiate if needed
             if (!VFX.IsInstanciated && normalizedTime >= VFX.timeToFire)
             {
-                VFX.IsInstanciated = true;
-                Quaternion rotation = VFX.prefab.transform.rotation;
-                rotation.eulerAngles.Set(rotation.x, 0, rotation.y);
-                Vector3 position = controller.transform.position + VFX.prefab.transform.position;
-                VFX.Go = Instantiate(VFX.prefab, controller.transform, false);
+                VFX.Instantiate(controller.transform);
+                continue;
+            }
+        }
+
+        foreach (Hitbox hitbox in Hitboxes)
+        {
+            // Destroy if needed
+            if (hitbox.IsInstanciated && normalizedTime >= hitbox.timeToDestroy)
+            {
+                hitbox.Leave();
+                continue;
+            }
+            // Instantiate if needed
+            else if (!hitbox.IsInstanciated && normalizedTime >= hitbox.timeToFire)
+            {
+                hitbox.Instantiate(controller.transform);
                 continue;
             }
         }
@@ -109,10 +133,11 @@ public abstract class SkillSO : ScriptableObject
         Debug.Log("OnQuit !");
         foreach (VFX vfx in VFXArray)
         {
-            if (vfx.destroyOnQuit) Destroy(vfx.Go);
-            else if (vfx.Go != null) vfx.Go.transform.transform.SetParent(null);
-            vfx.Go = null;
-            vfx.IsInstanciated = false;
+            vfx.Leave();
+        }
+        foreach (Hitbox hitbox in Hitboxes)
+        {
+            hitbox.Leave();
         }
         return;
     }

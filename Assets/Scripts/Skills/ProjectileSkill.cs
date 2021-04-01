@@ -24,7 +24,7 @@ public class ProjectileSkill : SkillSO
         {
             var go = GameObject.Instantiate(projectile, controller.transform.position, Quaternion.identity);
             go.transform.rotation = Quaternion.LookRotation(direction);
-            go.layer = LayerMask.NameToLayer("PlayerProjectile");
+            go.layer = LayerMask.NameToLayer("PlayerHitbox");
             hasShoot = true;
         }
         return;
