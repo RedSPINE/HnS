@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityData: {fileID: 11400000, guid: c9acd3b2776ac9942a8bf621e7c21d12, type: 2}
+  health: 0
 --- !u!114 &7101211793702300262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,8 +83,8 @@ MonoBehaviour:
   dodge: {fileID: 11400000, guid: 1ae7081fce9701a429f0e46bc49b17bd, type: 2}
   skillRecoveryTimer: 0
   skills:
-  - {fileID: 11400000, guid: 605affa4e46a44b429d4fdc0b7d1459b, type: 2}
-  - {fileID: 11400000, guid: e1080b19b00038540a256b5f29088066, type: 2}
+  - {fileID: 11400000, guid: a76c20db8144a7b4aa45df0260672c33, type: 2}
+  - {fileID: 11400000, guid: 2f63f0fdb0f298c4a97c4993f6a174c0, type: 2}
 --- !u!114 &7985700716310933614
 MonoBehaviour:
   m_ObjectHideFlags: 0

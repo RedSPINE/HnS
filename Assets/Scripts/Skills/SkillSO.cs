@@ -39,20 +39,20 @@ public abstract class SkillSO : ScriptableObject
         public GameObject prefab;
         private GameObject gameObject;
         public GameObject Go { get => gameObject; set => gameObject = value; }
-        private bool instanciated;
-        public bool IsInstanciated { get => instanciated; set => instanciated = value; }
+        private bool instantiated;
+        public bool IsInstantiated { get => instantiated; set => instantiated = value; }
 
         public void Leave()
         {
             if (destroyOnStateQuit) GameObject.Destroy(gameObject);
             else if (Go != null) Go.transform.transform.SetParent(null);
             Go = null;
-            IsInstanciated = false;
+            IsInstantiated = false;
         }
 
         public void Instantiate(Transform transform)
         {
-            IsInstanciated = true;
+            instantiated = true;
             Quaternion rotation = prefab.transform.rotation;
             rotation.eulerAngles.Set(rotation.x, 0, rotation.y);
             Vector3 position = transform.position + prefab.transform.position;
@@ -100,9 +100,9 @@ public abstract class SkillSO : ScriptableObject
         foreach (VFX VFX in VFXArray)
         {
             // Don’t need to instantiate or hit ? → Continue
-            if (VFX.IsInstanciated) continue;
+            if (VFX.IsInstantiated) continue;
             // Instantiate if needed
-            if (!VFX.IsInstanciated && normalizedTime >= VFX.timeToFire)
+            if (!VFX.IsInstantiated && normalizedTime >= VFX.timeToFire)
             {
                 VFX.Instantiate(controller.transform);
                 continue;
@@ -112,13 +112,13 @@ public abstract class SkillSO : ScriptableObject
         foreach (Hitbox hitbox in Hitboxes)
         {
             // Destroy if needed
-            if (hitbox.IsInstanciated && normalizedTime >= hitbox.timeToDestroy)
+            if (hitbox.IsInstantiated && normalizedTime >= hitbox.timeToDestroy)
             {
                 hitbox.Leave();
                 continue;
             }
             // Instantiate if needed
-            else if (!hitbox.IsInstanciated && normalizedTime >= hitbox.timeToFire)
+            else if (!hitbox.IsInstantiated && normalizedTime >= hitbox.timeToFire)
             {
                 hitbox.Instantiate(controller.transform);
                 continue;
@@ -130,7 +130,6 @@ public abstract class SkillSO : ScriptableObject
 
     public virtual void Quit(PlayerController controller)
     {
-        Debug.Log("OnQuit !");
         foreach (VFX vfx in VFXArray)
         {
             vfx.Leave();
