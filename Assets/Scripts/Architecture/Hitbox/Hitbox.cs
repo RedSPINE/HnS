@@ -36,7 +36,6 @@ public class Hitbox : MonoBehaviour
     [Range(-10, 10)]
     public float offset;
 
-
     private void OnDrawGizmos()
     {
         if (drawPlayer) Gizmos.DrawMesh(settings.PlayerGizmosMesh, -1, Vector3.zero);

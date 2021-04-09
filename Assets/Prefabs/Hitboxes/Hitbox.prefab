@@ -203,7 +203,7 @@ MonoBehaviour:
   collisionOpenColor: {r: 0.8018868, g: 0.7733222, b: 0.23073156, a: 0.69411767}
   collidingColor: {r: 1, g: 0, b: 0, a: 0.7529412}
   type: 0
-  sphereRadius: 0
+  sphereRadius: 1
   offset: 0
 --- !u!1 &5429999382985736566
 GameObject:

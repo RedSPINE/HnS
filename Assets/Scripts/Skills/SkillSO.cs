@@ -77,7 +77,7 @@ public abstract class SkillSO : ScriptableObject
     protected abstract void OnUpdate(PlayerController controller);
     protected abstract void OnEnter(PlayerController controller);
 
-    public virtual void Enter(PlayerController controller)
+    public void Enter(PlayerController controller)
     {
         internalCounter = 0;
         skillDuration = animation.length / animationSpeed;
@@ -89,7 +89,7 @@ public abstract class SkillSO : ScriptableObject
         controller.PlaySkillAnimation(animation, skillDuration, animationSpeed);
     }
 
-    public virtual void SkillUpdate(PlayerController controller)
+    public void SkillUpdate(PlayerController controller)
     {
         internalCounter += Time.deltaTime;
 
@@ -128,7 +128,7 @@ public abstract class SkillSO : ScriptableObject
         OnUpdate(controller);
     }
 
-    public virtual void Quit(PlayerController controller)
+    public void Quit(PlayerController controller)
     {
         foreach (VFX vfx in VFXArray)
         {
