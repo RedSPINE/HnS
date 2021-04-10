@@ -199,12 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drawPlayer: 1
   multiTarget: 1
-  inactiveColor: {r: 0.5827414, g: 1, b: 0.514151, a: 0.7019608}
-  collisionOpenColor: {r: 0.8018868, g: 0.7733222, b: 0.23073156, a: 0.69411767}
-  collidingColor: {r: 1, g: 0, b: 0, a: 0.7529412}
-  type: 0
-  sphereRadius: 1
-  offset: 0
+  hitbox: {fileID: 11400000, guid: 8dcdfbc7497b569418059cf96163a757, type: 2}
 --- !u!1 &5429999382985736566
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,4 +16,8 @@ public class HitboxSettings : SingletonScriptableObject<HitboxSettings>
     [SerializeField]
     private Mesh playerGizmoMesh;
     public Mesh PlayerGizmosMesh { get => playerGizmoMesh; }
+
+    public Color inactiveColor;
+    public Color collisionOpenColor;
+    public Color collidingColor;
 }
