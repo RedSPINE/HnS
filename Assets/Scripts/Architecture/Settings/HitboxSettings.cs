@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/HitboxSettings")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Settings/HitboxSettings")]
 public class HitboxSettings : SingletonScriptableObject<HitboxSettings>
 {
     [SerializeField]

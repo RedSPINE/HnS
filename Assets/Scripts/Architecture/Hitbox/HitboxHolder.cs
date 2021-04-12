@@ -10,6 +10,15 @@ public class HitboxHolder : MonoBehaviour
     public bool MultiTarget { get => multiTarget; set => multiTarget = value; }
 
     private HitboxSettings settings;
+    public HitboxSettings Settings
+    {
+        get
+        {
+            if (settings == null) settings = HitboxSettings.Instance;
+            return settings;
+        }
+    }
+
     [SerializeField]
     private Hitbox hitbox;
 
@@ -23,25 +32,24 @@ public class HitboxHolder : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (drawPlayer) Gizmos.DrawMesh(settings.PlayerGizmosMesh, -1, Vector3.zero);
-        if (settings == null) settings = HitboxSettings.Instance;
-
+        if (drawPlayer) Gizmos.DrawMesh(Settings.PlayerGizmosMesh, -1, Vector3.zero);
         checkGizmoColor();
         hitbox.DrawGizmos(transform.rotation);
     }
 
     private void checkGizmoColor()
     {
+        // if (_state == null) return;
         switch (_state)
         {
             case ColliderState.Closed:
-                Gizmos.color = settings.inactiveColor;
+                Gizmos.color = Settings.inactiveColor;
                 break;
             case ColliderState.Open:
-                Gizmos.color = settings.collisionOpenColor;
+                Gizmos.color = Settings.collisionOpenColor;
                 break;
             case ColliderState.Colliding:
-                Gizmos.color = settings.collidingColor;
+                Gizmos.color = Settings.collidingColor;
                 break;
         }
     }
