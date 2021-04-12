@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae2fe591a22b2d345a3e5363550402bb, type: 3}
   m_Name: Hitbox
   m_EditorClassIdentifier: 
-  horizontalHitboxHeight: 1
-  hitboxYWidth: 0.1
+  horizontalHitboxHeight: 0
+  hitboxYWidth: 0
   playerGizmoMesh: {fileID: 4777371684598551356, guid: df3af82ab9d825047bdcb754a5570801, type: 3}
   inactiveColor: {r: 0.67511666, g: 1, b: 0.5330188, a: 1}
   collisionOpenColor: {r: 1, g: 0.86954975, b: 0.25943398, a: 1}

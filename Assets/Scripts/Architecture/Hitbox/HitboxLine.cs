@@ -17,7 +17,10 @@ public class HitboxLine : Hitbox
         Vector3 position = new Vector3(0, HitboxSettings.HorizontalHitboxHeight, zOffset);
 
         if (!centerPivot)
+        {
             position.Set(position.x, position.y, position.z + length / 2);
+            position = rotation * position;
+        }
 
         Gizmos.matrix = Matrix4x4.TRS(position, rotation, new Vector3(width, HitboxSettings.HitboxYWidth, length));
         Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
