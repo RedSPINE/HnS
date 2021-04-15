@@ -15,5 +15,6 @@ public abstract class Hitbox : ScriptableObject
 
     [Range(-10, 10)]
     public float zOffset;
-    public abstract void DrawGizmos(Quaternion rotation);
+    public abstract void DrawGizmos(Transform transform);
+    public abstract Collider[] Cast(Transform transform);
 }

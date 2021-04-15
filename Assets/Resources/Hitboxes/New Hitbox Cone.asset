@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b1c7f9a37930ab4b93ae4f9af65d5ed, type: 3}
   m_Name: New Hitbox Cone
   m_EditorClassIdentifier: 
-  zOffset: 0.6
+  zOffset: 0
   length: 4.05
-  angle: 39
-  boxCount: 16
-  boxWidth: 0.01
+  angle: 84
+  boxCount: 8
+  boxWidth: 0

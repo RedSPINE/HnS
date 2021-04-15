@@ -8,11 +8,16 @@ public class HitboxCircle : Hitbox
     [SerializeField]
     private float radius = 1;
 
-    public override void DrawGizmos(Quaternion rotation)
+    public override Collider[] Cast(Transform transform)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void DrawGizmos(Transform transform)
     {
         Vector3 position = new Vector3(0, HitboxSettings.HorizontalHitboxHeight, zOffset);
-        position = rotation * position;
-        Gizmos.matrix = Matrix4x4.TRS(position, rotation, Vector3.one);
+        position = transform.rotation * position;
+        Gizmos.matrix = Matrix4x4.TRS(position, transform.rotation, Vector3.one);
         Gizmos.DrawWireSphere(Vector3.zero, radius);
     }
 }

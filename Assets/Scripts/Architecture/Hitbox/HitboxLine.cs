@@ -12,17 +12,22 @@ public class HitboxLine : Hitbox
     [SerializeField]
     private bool centerPivot = true;
 
-    public override void DrawGizmos(Quaternion rotation)
+    public override Collider[] Cast(Transform transform)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void DrawGizmos(Transform transform)
     {
         Vector3 position = new Vector3(0, HitboxSettings.HorizontalHitboxHeight, zOffset);
 
         if (!centerPivot)
         {
             position.Set(position.x, position.y, position.z + length / 2);
-            position = rotation * position;
+            position = transform.rotation * position;
         }
 
-        Gizmos.matrix = Matrix4x4.TRS(position, rotation, new Vector3(width, HitboxSettings.HitboxYWidth, length));
+        Gizmos.matrix = Matrix4x4.TRS(position, transform.rotation, new Vector3(width, HitboxSettings.HitboxYWidth, length));
         Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
     }
 }

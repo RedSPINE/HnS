@@ -28,13 +28,14 @@ public class HitboxHolder : MonoBehaviour
         Open,
         Colliding
     }
+    [SerializeField]
     private ColliderState _state;
 
     private void OnDrawGizmos()
     {
         if (drawPlayer) Gizmos.DrawMesh(Settings.PlayerGizmosMesh, -1, Vector3.zero);
         checkGizmoColor();
-        hitbox.DrawGizmos(transform.rotation);
+        hitbox.DrawGizmos(transform);
     }
 
     private void checkGizmoColor()
@@ -51,6 +52,15 @@ public class HitboxHolder : MonoBehaviour
             case ColliderState.Colliding:
                 Gizmos.color = Settings.collidingColor;
                 break;
+        }
+    }
+
+    public void Cast()
+    {
+        Collider[] hits = hitbox.Cast(transform);
+        foreach (Collider hit in hits)
+        {
+            Debug.Log(hit.ToString());
         }
     }
 }
