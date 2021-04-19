@@ -35,7 +35,6 @@ public class HitboxCone : Hitbox
         {
             effectiveAngle = -angle / 2 + i * (angle / (boxCount - 1));
             effectiveRotation = Quaternion.Euler(rotation.eulerAngles.x, rotation.eulerAngles.y + effectiveAngle, rotation.eulerAngles.z);
-            Debug.Log(rotation);
             effectivePos = centerPos + length / 2 * (effectiveRotation * Vector3.forward);
 
             Gizmos.matrix = Matrix4x4.TRS(effectivePos + transform.position, effectiveRotation, new Vector3(boxWidth, HitboxSettings.HitboxYWidth, length));
