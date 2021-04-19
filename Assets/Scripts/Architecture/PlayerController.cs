@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 [DisallowMultipleComponent]
 public class PlayerController : MonoBehaviour
 {
     // Hidden references
     private PlayerInput playerInput;
+    private PlayerInput.CharacterActions Character;
+
     private CharacterController characterController;
     private Vector3 cursorWorldPosition;
     public Vector3 CursorWorldPosition
@@ -29,8 +32,7 @@ public class PlayerController : MonoBehaviour
     [Header("Combo System")]
     public SkillSO[] skills;
 
-    // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
@@ -39,10 +41,12 @@ public class PlayerController : MonoBehaviour
         entity = GetComponent<Entity>();
 
         playerInput = new PlayerInput();
-        playerInput.KeyboardMouse.LeftClick.performed += ctx => OnClickPerformed(1);
-        playerInput.KeyboardMouse.RightClick.performed += ctx => OnClickPerformed(2);
-        playerInput.KeyboardMouse.Space.performed += ctx => OnSpacePerformed();
+        Character = playerInput.Character;
+        Character.Attack1.performed += ctx => OnAttackPerformed(1);
+        Character.Attack2.performed += ctx => OnAttackPerformed(2);
+        Character.Dodge.performed += ctx => OnDodgePerformed();
         playerInput.Enable();
+
 
         playerPlane = new Plane(Vector3.up, 0f);
     }
@@ -70,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateCursorWorldPosition()
     {
-        var mousePosition = playerInput.KeyboardMouse.Mouse.ReadValue<Vector2>();
+        var mousePosition = Character.Look.ReadValue<Vector2>();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         float enter = 0.0f;
         if (playerPlane.Raycast(ray, out enter))
@@ -91,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Vector2 direction = playerInput.KeyboardMouse.Move.ReadValue<Vector2>();
+        Vector2 direction = Character.Move.ReadValue<Vector2>();
         if(direction != Vector2.zero)
             this.direction = new Vector3(direction.x, 0, direction.y);
         if (playingSkill != null) return;
@@ -110,17 +114,17 @@ public class PlayerController : MonoBehaviour
         characterController.Move(motion);
     }
 
-    private void OnClickPerformed(int slot)
+    private void OnAttackPerformed(int slot)
     {
         // LOCKED IF PERFORMING A SKILL
         if (playingSkill != null && !playingSkill.IsCancelable(this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime)) return;
         UseSkill(skills[slot-1]);
     }
 
-    private void OnSpacePerformed()
+    private void OnDodgePerformed()
     {
         if (playingSkill != null && !playingSkill.IsCancelable(this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime, true)) return;
-        if (playingSkill != null && playerInput.KeyboardMouse.Move.ReadValue<Vector2>() == Vector2.zero) this.direction = playingSkill.Direction;
+        if (playingSkill != null && Character.Move.ReadValue<Vector2>() == Vector2.zero) this.direction = playingSkill.Direction;
         UseSkill(dodge);
     }
 

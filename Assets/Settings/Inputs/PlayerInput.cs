@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Inputs/PlayerInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Settings/Inputs/PlayerInput.inputactions'
 
 using System;
 using System.Collections;
@@ -15,11 +15,11 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     ""name"": ""PlayerInput"",
     ""maps"": [
         {
-            ""name"": ""Keyboard + Mouse"",
+            ""name"": ""Character"",
             ""id"": ""ba332324-8c60-43a7-bfd3-d6c92f127b96"",
             ""actions"": [
                 {
-                    ""name"": ""Mouse"",
+                    ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""2d380f78-ab72-43ea-a4e9-4de65abfc17c"",
                     ""expectedControlType"": """",
@@ -27,7 +27,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": ""Hold(duration=0.1,pressPoint=0.5)""
                 },
                 {
-                    ""name"": ""LeftClick"",
+                    ""name"": ""Attack1"",
                     ""type"": ""Button"",
                     ""id"": ""cc47e55e-5f12-4316-96d3-a3b5890b9fc7"",
                     ""expectedControlType"": ""Button"",
@@ -35,7 +35,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""RightClick"",
+                    ""name"": ""Attack2"",
                     ""type"": ""Button"",
                     ""id"": ""ad3112f5-d107-4e3a-9aca-77ead510e84b"",
                     ""expectedControlType"": ""Button"",
@@ -51,7 +51,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Space"",
+                    ""name"": ""Dodge"",
                     ""type"": ""Button"",
                     ""id"": ""6cf56df6-0f44-425e-96b0-d242611066dd"",
                     ""expectedControlType"": ""Button"",
@@ -67,7 +67,18 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""667dca06-1050-4817-8fd6-b1fb69a9947c"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -78,7 +89,18 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LeftClick"",
+                    ""action"": ""Attack1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""031dd18f-7154-44fc-bfbc-e02e21f3e20e"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -89,7 +111,18 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RightClick"",
+                    ""action"": ""Attack2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""354bd843-f0a1-411e-aa08-71e768bc1c46"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -150,12 +183,34 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""7fa4db69-29e8-4748-a2c8-c2aaf7363089"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""ce45ad56-f255-4dbd-9ea7-bff4781e2bc9"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Space"",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a2b1d35-70b0-4e31-b888-ca47bdaeb215"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -164,13 +219,13 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Keyboard + Mouse
-        m_KeyboardMouse = asset.FindActionMap("Keyboard + Mouse", throwIfNotFound: true);
-        m_KeyboardMouse_Mouse = m_KeyboardMouse.FindAction("Mouse", throwIfNotFound: true);
-        m_KeyboardMouse_LeftClick = m_KeyboardMouse.FindAction("LeftClick", throwIfNotFound: true);
-        m_KeyboardMouse_RightClick = m_KeyboardMouse.FindAction("RightClick", throwIfNotFound: true);
-        m_KeyboardMouse_Move = m_KeyboardMouse.FindAction("Move", throwIfNotFound: true);
-        m_KeyboardMouse_Space = m_KeyboardMouse.FindAction("Space", throwIfNotFound: true);
+        // Character
+        m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
+        m_Character_Look = m_Character.FindAction("Look", throwIfNotFound: true);
+        m_Character_Attack1 = m_Character.FindAction("Attack1", throwIfNotFound: true);
+        m_Character_Attack2 = m_Character.FindAction("Attack2", throwIfNotFound: true);
+        m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
+        m_Character_Dodge = m_Character.FindAction("Dodge", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -217,76 +272,76 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // Keyboard + Mouse
-    private readonly InputActionMap m_KeyboardMouse;
-    private IKeyboardMouseActions m_KeyboardMouseActionsCallbackInterface;
-    private readonly InputAction m_KeyboardMouse_Mouse;
-    private readonly InputAction m_KeyboardMouse_LeftClick;
-    private readonly InputAction m_KeyboardMouse_RightClick;
-    private readonly InputAction m_KeyboardMouse_Move;
-    private readonly InputAction m_KeyboardMouse_Space;
-    public struct KeyboardMouseActions
+    // Character
+    private readonly InputActionMap m_Character;
+    private ICharacterActions m_CharacterActionsCallbackInterface;
+    private readonly InputAction m_Character_Look;
+    private readonly InputAction m_Character_Attack1;
+    private readonly InputAction m_Character_Attack2;
+    private readonly InputAction m_Character_Move;
+    private readonly InputAction m_Character_Dodge;
+    public struct CharacterActions
     {
         private @PlayerInput m_Wrapper;
-        public KeyboardMouseActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Mouse => m_Wrapper.m_KeyboardMouse_Mouse;
-        public InputAction @LeftClick => m_Wrapper.m_KeyboardMouse_LeftClick;
-        public InputAction @RightClick => m_Wrapper.m_KeyboardMouse_RightClick;
-        public InputAction @Move => m_Wrapper.m_KeyboardMouse_Move;
-        public InputAction @Space => m_Wrapper.m_KeyboardMouse_Space;
-        public InputActionMap Get() { return m_Wrapper.m_KeyboardMouse; }
+        public CharacterActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Look => m_Wrapper.m_Character_Look;
+        public InputAction @Attack1 => m_Wrapper.m_Character_Attack1;
+        public InputAction @Attack2 => m_Wrapper.m_Character_Attack2;
+        public InputAction @Move => m_Wrapper.m_Character_Move;
+        public InputAction @Dodge => m_Wrapper.m_Character_Dodge;
+        public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(KeyboardMouseActions set) { return set.Get(); }
-        public void SetCallbacks(IKeyboardMouseActions instance)
+        public static implicit operator InputActionMap(CharacterActions set) { return set.Get(); }
+        public void SetCallbacks(ICharacterActions instance)
         {
-            if (m_Wrapper.m_KeyboardMouseActionsCallbackInterface != null)
+            if (m_Wrapper.m_CharacterActionsCallbackInterface != null)
             {
-                @Mouse.started -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnMouse;
-                @Mouse.performed -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnMouse;
-                @Mouse.canceled -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnMouse;
-                @LeftClick.started -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnLeftClick;
-                @LeftClick.performed -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnLeftClick;
-                @LeftClick.canceled -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnLeftClick;
-                @RightClick.started -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnRightClick;
-                @RightClick.performed -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnRightClick;
-                @RightClick.canceled -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnRightClick;
-                @Move.started -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnMove;
-                @Move.performed -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnMove;
-                @Move.canceled -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnMove;
-                @Space.started -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnSpace;
-                @Space.performed -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnSpace;
-                @Space.canceled -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnSpace;
+                @Look.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLook;
+                @Attack1.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack1;
+                @Attack1.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack1;
+                @Attack1.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack1;
+                @Attack2.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack2;
+                @Attack2.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack2;
+                @Attack2.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack2;
+                @Move.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
+                @Dodge.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDodge;
+                @Dodge.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDodge;
+                @Dodge.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDodge;
             }
-            m_Wrapper.m_KeyboardMouseActionsCallbackInterface = instance;
+            m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Mouse.started += instance.OnMouse;
-                @Mouse.performed += instance.OnMouse;
-                @Mouse.canceled += instance.OnMouse;
-                @LeftClick.started += instance.OnLeftClick;
-                @LeftClick.performed += instance.OnLeftClick;
-                @LeftClick.canceled += instance.OnLeftClick;
-                @RightClick.started += instance.OnRightClick;
-                @RightClick.performed += instance.OnRightClick;
-                @RightClick.canceled += instance.OnRightClick;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
+                @Attack1.started += instance.OnAttack1;
+                @Attack1.performed += instance.OnAttack1;
+                @Attack1.canceled += instance.OnAttack1;
+                @Attack2.started += instance.OnAttack2;
+                @Attack2.performed += instance.OnAttack2;
+                @Attack2.canceled += instance.OnAttack2;
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Space.started += instance.OnSpace;
-                @Space.performed += instance.OnSpace;
-                @Space.canceled += instance.OnSpace;
+                @Dodge.started += instance.OnDodge;
+                @Dodge.performed += instance.OnDodge;
+                @Dodge.canceled += instance.OnDodge;
             }
         }
     }
-    public KeyboardMouseActions @KeyboardMouse => new KeyboardMouseActions(this);
-    public interface IKeyboardMouseActions
+    public CharacterActions @Character => new CharacterActions(this);
+    public interface ICharacterActions
     {
-        void OnMouse(InputAction.CallbackContext context);
-        void OnLeftClick(InputAction.CallbackContext context);
-        void OnRightClick(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
+        void OnAttack1(InputAction.CallbackContext context);
+        void OnAttack2(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
-        void OnSpace(InputAction.CallbackContext context);
+        void OnDodge(InputAction.CallbackContext context);
     }
 }
