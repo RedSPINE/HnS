@@ -3281,23 +3281,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &666161282 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5757270260135620099, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-  m_PrefabInstance: {fileID: 5757270259125689475}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &666161283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 666161282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73f2e0a734465a1488bfcfa51379e59a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &692128081
 Mesh:
   m_ObjectHideFlags: 0
@@ -8101,54 +8084,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_NotificationBehavior
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_ActionId
-      value: 2d380f78-ab72-43ea-a4e9-4de65abfc17c
-      objectReference: {fileID: 0}
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_ActionId
-      value: cc47e55e-5f12-4316-96d3-a3b5890b9fc7
-      objectReference: {fileID: 0}
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_ActionId
-      value: ad3112f5-d107-4e3a-9aca-77ead510e84b
-      objectReference: {fileID: 0}
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
-      value: d133922a-3c04-43dc-bb49-4880dd9f9ba3
-      objectReference: {fileID: 0}
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
-      value: 6cf56df6-0f44-425e-96b0-d242611066dd
-      objectReference: {fileID: 0}
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_ActionName
-      value: Character/Look[/Mouse/position,/XInputControllerWindows/rightStick]
-      objectReference: {fileID: 0}
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_ActionName
-      value: Character/Attack1[/Mouse/leftButton,/XInputControllerWindows/buttonNorth]
-      objectReference: {fileID: 0}
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_ActionName
-      value: Character/Attack2[/Mouse/rightButton,/XInputControllerWindows/buttonEast]
-      objectReference: {fileID: 0}
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
-      value: Character/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
-      objectReference: {fileID: 0}
-    - target: {fileID: 666161283, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
-      value: Character/Dodge[/Keyboard/space,/XInputControllerWindows/buttonSouth]
-      objectReference: {fileID: 0}
     - target: {fileID: 5757270260135620098, guid: 218410a2dce0ac6429a1f45786200e65, type: 3}
       propertyPath: m_RootOrder
       value: 1
