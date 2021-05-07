@@ -44,11 +44,11 @@ public class HitboxCone : Hitbox
 
     public override Collider[] Cast(Transform transform)
     {
-        Quaternion rotation = transform.rotation;
-        HashSet<Collider> hits = new HashSet<Collider>(); // Init structure
+        Quaternion transformRotation = transform.rotation; // Get the rotation of the given Transform argument
+        HashSet<Collider> hits = new HashSet<Collider>(); // Init a set for hit collection
 
-        Vector3 centerPos = new Vector3(0, HitboxSettings.HorizontalHitboxHeight, 0); // Character centre
-        centerPos += rotation * Vector3.forward * zOffset; // Displace center of cone
+        Vector3 centerPos = new Vector3(0, HitboxSettings.HorizontalHitboxHeight, 0); // Character centre relative to itself
+        centerPos += transformRotation * Vector3.forward * zOffset; // Displace center of cone
 
         // Prepare variables for loops
         float effectiveAngle;
@@ -58,13 +58,23 @@ public class HitboxCone : Hitbox
         for (int i = 0; i < boxCount; i++)
         {
             effectiveAngle = -angle / 2 + i * (angle / (boxCount - 1));
-            effectiveRotation = Quaternion.Euler(rotation.eulerAngles.x, rotation.eulerAngles.y + effectiveAngle, rotation.eulerAngles.z);
+
+            effectiveRotation = Quaternion.Euler(
+                transformRotation.eulerAngles.x, 
+                transformRotation.eulerAngles.y + effectiveAngle, 
+                transformRotation.eulerAngles.z);
+            
             effectivePos = centerPos + length / 2 * (effectiveRotation * Vector3.forward);
 
-            RaycastHit[] effectiveHits = Physics.BoxCastAll(effectivePos + transform.position, new Vector3(boxWidth, HitboxSettings.HitboxYWidth, length), effectiveRotation * Vector3.forward);
-            foreach (RaycastHit effectiveHit in effectiveHits)
+            Collider[] effectiveHits = Physics.OverlapBox(
+                effectivePos + transform.position,
+                new Vector3(boxWidth, HitboxSettings.HitboxYWidth, length),
+                effectiveRotation,
+                LayerMask.GetMask("Ennemy"));
+            
+            foreach (Collider collider in effectiveHits)
             {
-                hits.Add(effectiveHit.collider);
+                hits.Add(collider); // The set will handle redundancy
             }
         }
 

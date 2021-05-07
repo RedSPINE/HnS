@@ -61,16 +61,38 @@ public abstract class SkillSO : ScriptableObject
     }
 
     [System.Serializable]
-    public class Hitbox : VFX
+    public class Hitbox
     {
-        [Range(0, 1)] public float timeToDestroy;
+        [Range(0, 1)] public float timeToOpen;
+        [Range(0, 1)] public float timeToClose;
+        public GameObject prefab;
+        [HideInInspector] public GameObject gameObject = null;
+
+        public void Instantiate(Transform transform)
+        {
+            Quaternion rotation = prefab.transform.rotation;
+            rotation.eulerAngles.Set(rotation.x, 0, rotation.y);
+            Vector3 position = transform.position + prefab.transform.position;
+            gameObject = GameObject.Instantiate(prefab, transform, false);
+        }
+
+        public void Destroy()
+        {
+            if (gameObject == null)
+            {
+                Debug.LogError("Trying to destroy Hitbox without instantiated gameObject.");
+                return;
+            }
+            GameObject.Destroy(gameObject);
+            gameObject = null;
+        }
     }
 
     [SerializeField] protected CancelWindow[] cancelWindows;
     [SerializeField] protected VFX[] VFXArray;
     [SerializeField] protected Hitbox[] Hitboxes;
 
-    protected float internalCounter = 0;
+    [SerializeField] protected float internalCounter = 0;
 
     // Implement the State Pattern
     public abstract void HandleInput();
@@ -81,12 +103,18 @@ public abstract class SkillSO : ScriptableObject
     {
         internalCounter = 0;
         skillDuration = animation.length / animationSpeed;
+        Debug.Log("SkillDuration : " + skillDuration);
         if (lookCursor)
             direction = controller.LookCursor();
         else
             direction = controller.Direction;
         OnEnter(controller);
         controller.PlaySkillAnimation(animation, skillDuration, animationSpeed);
+
+        foreach (Hitbox hitbox in Hitboxes)
+        {
+            hitbox.Instantiate(controller.transform);
+        }
     }
 
     public void SkillUpdate(PlayerController controller)
@@ -111,17 +139,15 @@ public abstract class SkillSO : ScriptableObject
 
         foreach (Hitbox hitbox in Hitboxes)
         {
-            // Destroy if needed
-            if (hitbox.IsInstantiated && normalizedTime >= hitbox.timeToDestroy)
+            // Open if needed
+            if (normalizedTime >= hitbox.timeToOpen && normalizedTime < hitbox.timeToClose)
             {
-                hitbox.Leave();
-                continue;
+                hitbox.gameObject.GetComponent<HitboxHolder>().Open();
             }
-            // Instantiate if needed
-            else if (!hitbox.IsInstantiated && normalizedTime >= hitbox.timeToFire)
+            // Close if needed
+            if (normalizedTime >= hitbox.timeToClose)
             {
-                hitbox.Instantiate(controller.transform);
-                continue;
+                hitbox.gameObject.GetComponent<HitboxHolder>().Close();
             }
         }
 
@@ -136,7 +162,7 @@ public abstract class SkillSO : ScriptableObject
         }
         foreach (Hitbox hitbox in Hitboxes)
         {
-            hitbox.Leave();
+            hitbox.Destroy();
         }
         return;
     }

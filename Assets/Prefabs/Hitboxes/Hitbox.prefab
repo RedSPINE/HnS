@@ -46,3 +46,4 @@ MonoBehaviour:
   drawPlayer: 1
   multiTarget: 1
   hitbox: {fileID: 11400000, guid: 8dcdfbc7497b569418059cf96163a757, type: 2}
+  _state: 0

@@ -72,7 +72,7 @@ MonoBehaviour:
     destroyOnStateQuit: 0
     prefab: {fileID: 346224836964371831, guid: 3273ae481d8f96b4db3e2d675196d46f, type: 3}
   Hitboxes:
-  - timeToFire: 0.556
-    destroyOnStateQuit: 1
+  - timeToOpen: 0.462
+    timeToClose: 0.703
     prefab: {fileID: 5429999382685472303, guid: 113241f84f737ac459e3f84c703f9df1, type: 3}
-    timeToDestroy: 0
+    gameObject: {fileID: 0}

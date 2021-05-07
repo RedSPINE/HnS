@@ -18,23 +18,25 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private AnimatorOverrideController animatorOverrideController;
     private Entity entity;
-    
+
     private Vector3 direction;
-    public Vector3 Direction {
+    public Vector3 Direction
+    {
         get => direction;
     }
-    
+
     [Header("Animator")]
     [SerializeField] private SkillSO playingSkill = null;
     [SerializeField] private Dodge dodge = default;
     [SerializeField] private float skillRecoveryTimer = 0;
-    
+
     [Header("Combo System")]
     public SkillSO[] skills;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+
         animator = GetComponentInChildren<Animator>();
         animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animator.runtimeAnimatorController = animatorOverrideController;
@@ -46,7 +48,6 @@ public class PlayerController : MonoBehaviour
         Character.Attack2.performed += ctx => OnAttackPerformed(2);
         Character.Dodge.performed += ctx => OnDodgePerformed();
         playerInput.Enable();
-
 
         playerPlane = new Plane(Vector3.up, 0f);
     }
@@ -65,7 +66,7 @@ public class PlayerController : MonoBehaviour
                 UseSkill(null);
                 animator.SetTrigger("StopSkill");
             }
-        } 
+        }
         else
         {
             animator.ResetTrigger("StopSkill");
@@ -74,13 +75,22 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateCursorWorldPosition()
     {
-        var mousePosition = Character.Look.ReadValue<Vector2>();
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        float enter = 0.0f;
-        if (playerPlane.Raycast(ray, out enter))
+        var cursorPos = Character.Look.ReadValue<Vector2>();
+        if (InputSettings.Instance.Scheme == InputSettings.ControlScheme.KeyboardMouse)
         {
-            cursorWorldPosition = ray.GetPoint(enter);
-        }   
+            Ray ray = Camera.main.ScreenPointToRay(cursorPos);
+            float enter = 0.0f;
+            if (playerPlane.Raycast(ray, out enter))
+            {
+                cursorWorldPosition = ray.GetPoint(enter);
+            }
+        }
+        else
+        {
+            var characterPos = transform.position;
+            if (cursorPos != Vector2.zero)
+                cursorWorldPosition = new Vector3(characterPos.x + cursorPos.x, characterPos.y, characterPos.z + cursorPos.y);
+        }
     }
 
     public Vector3 LookCursor()
@@ -96,10 +106,11 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         Vector2 direction = Character.Move.ReadValue<Vector2>();
-        if(direction != Vector2.zero)
+        if (direction != Vector2.zero)
             this.direction = new Vector3(direction.x, 0, direction.y);
         if (playingSkill != null) return;
-        if (direction.magnitude == 0){
+        if (direction.magnitude == 0)
+        {
             animator.SetBool("IsRunning", false);
             return;
         }
@@ -118,7 +129,7 @@ public class PlayerController : MonoBehaviour
     {
         // LOCKED IF PERFORMING A SKILL
         if (playingSkill != null && !playingSkill.IsCancelable(this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime)) return;
-        UseSkill(skills[slot-1]);
+        UseSkill(skills[slot - 1]);
     }
 
     private void OnDodgePerformed()
@@ -132,7 +143,7 @@ public class PlayerController : MonoBehaviour
     {
         animatorOverrideController["Skill"] = clip;
         animator.speed = speed;
-        if (time==-1) time = clip.length;
+        if (time == -1) time = clip.length;
         skillRecoveryTimer = time;
         animator.SetTrigger("PlaySkill");
     }

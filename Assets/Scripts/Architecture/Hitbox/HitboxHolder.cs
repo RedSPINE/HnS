@@ -5,22 +5,8 @@ using UnityEngine;
 public class HitboxHolder : MonoBehaviour
 {
     [SerializeField] private bool drawPlayer = false;
-
     [SerializeField] private bool multiTarget = true;
-    public bool MultiTarget { get => multiTarget; set => multiTarget = value; }
-
-    private HitboxSettings settings;
-    public HitboxSettings Settings
-    {
-        get
-        {
-            if (settings == null) settings = HitboxSettings.Instance;
-            return settings;
-        }
-    }
-
-    [SerializeField]
-    private Hitbox hitbox;
+    [SerializeField] private Hitbox hitbox;
 
     public enum ColliderState
     {
@@ -31,8 +17,19 @@ public class HitboxHolder : MonoBehaviour
     [SerializeField]
     private ColliderState _state;
 
+    public void Open()
+    {
+        _state = ColliderState.Open;
+    }
+
+    public void Close()
+    {
+        _state = ColliderState.Closed;
+    }
+
     private void OnDrawGizmos()
     {
+        HitboxSettings Settings = HitboxSettings.Instance;
         if (drawPlayer) Gizmos.DrawMesh(Settings.PlayerGizmosMesh, -1, Vector3.zero);
         checkGizmoColor();
         hitbox.DrawGizmos(transform);
@@ -40,7 +37,7 @@ public class HitboxHolder : MonoBehaviour
 
     private void checkGizmoColor()
     {
-        // if (_state == null) return;
+        HitboxSettings Settings = HitboxSettings.Instance;
         switch (_state)
         {
             case ColliderState.Closed:
@@ -55,12 +52,19 @@ public class HitboxHolder : MonoBehaviour
         }
     }
 
-    public void Cast()
+    private void Update() {
+        if (_state == ColliderState.Closed) return;
+        if (Cast().Length != 0) _state = ColliderState.Colliding;
+        else _state = ColliderState.Open;
+    }
+
+    public Collider[] Cast()
     {
         Collider[] hits = hitbox.Cast(transform);
         foreach (Collider hit in hits)
         {
             Debug.Log(hit.ToString());
         }
+        return hits;
     }
 }

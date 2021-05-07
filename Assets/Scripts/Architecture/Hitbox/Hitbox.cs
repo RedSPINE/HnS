@@ -3,13 +3,11 @@ using UnityEngine;
 
 public abstract class Hitbox : ScriptableObject
 {
-    private HitboxSettings hitboxSettings;
     public HitboxSettings HitboxSettings
     {
         get
         {
-            if (hitboxSettings == null) hitboxSettings = HitboxSettings.Instance;
-            return hitboxSettings;
+            return HitboxSettings.Instance;
         }
     }
 
