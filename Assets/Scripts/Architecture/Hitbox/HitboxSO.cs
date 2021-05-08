@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class Hitbox : ScriptableObject
+public abstract class HitboxSO : ScriptableObject
 {
     public HitboxSettings HitboxSettings
     {

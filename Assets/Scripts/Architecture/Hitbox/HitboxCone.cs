@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Hitbox/Cone")]
-public class HitboxCone : Hitbox
+public class HitboxCone : HitboxSO
 {
     [SerializeField]
     [Min(0.1f)]

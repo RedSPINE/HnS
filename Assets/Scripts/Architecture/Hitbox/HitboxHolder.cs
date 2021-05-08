@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HitboxHolder : MonoBehaviour
 {
     [SerializeField] private bool drawPlayer = false;
     [SerializeField] private bool multiTarget = true;
-    [SerializeField] private Hitbox hitbox;
+    [SerializeField] private HitboxSO hitbox;
 
     public enum ColliderState
     {

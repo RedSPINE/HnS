@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Hitbox/Circle")]
-public class HitboxCircle : Hitbox
+public class HitboxCircle : HitboxSO
 {
     [SerializeField]
     private float radius = 1;

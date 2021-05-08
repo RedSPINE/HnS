@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Hitbox/Line")]
-public class HitboxLine : Hitbox
+public class HitboxLine : HitboxSO
 {
     [SerializeField]
     private float length = 1;

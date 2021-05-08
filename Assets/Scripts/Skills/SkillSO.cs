@@ -101,6 +101,7 @@ public abstract class SkillSO : ScriptableObject
 
     public void Enter(PlayerController controller)
     {
+        if (animation == null) Debug.LogError("No animation for Skill " + skillName);
         internalCounter = 0;
         skillDuration = animation.length / animationSpeed;
         Debug.Log("SkillDuration : " + skillDuration);
