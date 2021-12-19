@@ -65,6 +65,11 @@ public abstract class SkillSO : ScriptableObject
     {
         [Range(0, 1)] public float timeToOpen;
         [Range(0, 1)] public float timeToClose;
+        public enum HitboxType {
+            Damage,
+        }
+        public HitboxType hitboxType;
+        public int baseDamage;
         public GameObject prefab;
         [HideInInspector] public GameObject gameObject = null;
 
@@ -74,6 +79,7 @@ public abstract class SkillSO : ScriptableObject
             rotation.eulerAngles.Set(rotation.x, 0, rotation.y);
             Vector3 position = transform.position + prefab.transform.position;
             gameObject = GameObject.Instantiate(prefab, transform, false);
+            gameObject.GetComponent<HitboxHolder>().skillHit = this;
         }
 
         public void Destroy()
@@ -112,9 +118,11 @@ public abstract class SkillSO : ScriptableObject
         OnEnter(controller);
         controller.PlaySkillAnimation(animation, skillDuration, animationSpeed);
 
+        // instantiate all the hitboxes needed
         foreach (Hitbox hitbox in Hitboxes)
         {
             hitbox.Instantiate(controller.transform);
+
         }
     }
 
@@ -126,6 +134,7 @@ public abstract class SkillSO : ScriptableObject
         float dist = displacement.Evaluate(normalizedTime) * Time.deltaTime;
         controller.Move(direction.normalized * dist);
 
+        // create VFXs
         foreach (VFX VFX in VFXArray)
         {
             // Don’t need to instantiate or hit ? → Continue
@@ -138,6 +147,7 @@ public abstract class SkillSO : ScriptableObject
             }
         }
 
+        // open/close hitboxes
         foreach (Hitbox hitbox in Hitboxes)
         {
             // Open if needed

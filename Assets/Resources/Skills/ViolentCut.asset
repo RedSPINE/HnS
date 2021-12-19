@@ -74,5 +74,8 @@ MonoBehaviour:
   Hitboxes:
   - timeToOpen: 0.462
     timeToClose: 0.703
+    hitboxType: 0
+    baseDamage: 20
     prefab: {fileID: 5429999382685472303, guid: 113241f84f737ac459e3f84c703f9df1, type: 3}
     gameObject: {fileID: 0}
+  internalCounter: 0.6899667

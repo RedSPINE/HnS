@@ -38,8 +38,7 @@ public class Entity: MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         health -= damage;
-        
-        Debug.Log("TakeDamage");
+        Debug.Log($"TakeDamage: {damage}, new health: {health}");
         OnHealthPctChange(health/MaxHealth);
         
         if(health<=0)

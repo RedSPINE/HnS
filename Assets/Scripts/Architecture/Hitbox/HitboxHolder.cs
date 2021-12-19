@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HitboxHolder : MonoBehaviour
@@ -5,6 +6,7 @@ public class HitboxHolder : MonoBehaviour
     [SerializeField] private bool drawPlayer = false;
     [SerializeField] private bool multiTarget = true;
     [SerializeField] private HitboxSO hitbox;
+    public SkillSO.Hitbox skillHit;
 
     public enum ColliderState
     {
@@ -56,12 +58,22 @@ public class HitboxHolder : MonoBehaviour
         else _state = ColliderState.Open;
     }
 
+    HashSet<Collider> touchedColliders;
+    private void Start()
+    {
+        touchedColliders = new HashSet<Collider>();
+    }
+
     public Collider[] Cast()
     {
         Collider[] hits = hitbox.Cast(transform);
         foreach (Collider hit in hits)
         {
-            Debug.Log(hit.ToString());
+            if(touchedColliders.Contains(hit)) continue;
+            Debug.Log(hit.gameObject.GetComponent<Entity>().ToString());
+            if (skillHit.hitboxType == SkillSO.Hitbox.HitboxType.Damage)
+                hit.gameObject.GetComponent<Entity>().TakeDamage(skillHit.baseDamage);
+            touchedColliders.Add(hit);
         }
         return hits;
     }
