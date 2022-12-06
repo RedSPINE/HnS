@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: -0, y: 0.0000013411044, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -46,4 +47,11 @@ MonoBehaviour:
   drawPlayer: 1
   multiTarget: 1
   hitbox: {fileID: 11400000, guid: 8dcdfbc7497b569418059cf96163a757, type: 2}
+  skillHit:
+    timeToOpen: 0
+    timeToClose: 0
+    hitboxType: 0
+    baseDamage: 0
+    prefab: {fileID: 0}
+    gameObject: {fileID: 0}
   _state: 0

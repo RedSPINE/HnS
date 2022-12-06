@@ -1818,7 +1818,7 @@ TextureImporter:
       213: 6639740101224707717
     second: skills_604
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -1839,6 +1839,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1847,9 +1848,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 1
     aniso: 2
-    mipBias: -100
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 0
@@ -1870,11 +1871,14 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -1926,6 +1930,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -2453,6 +2469,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      skills_17: -979634279710815963
+      skills_19: 1272625545277882964
+      skills_16: 1381141789245080190
+      skills_12: 8444848628205088410
+      skills_18: 4327745837452563964
+      skills_22: 359565531509693294
+      skills_9: 7116899043160303953
+      skills_11: 9122645907860882979
+      skills_1: 3403258472632580065
+      skills_20: 8371138620016785461
+      skills_2: -3270749691070897954
+      skills_13: 1260598644945743368
+      skills_10: 8616979712302491551
+      skills_6: 1216849358509855973
+      skills_14: -6802124631727338565
+      skills_8: -936124954036847002
+      skills_23: -2660724389008253964
+      skills_15: 3534807678236495575
+      skills_3: -7637036698441226068
+      skills_4: -8065029926712156904
+      skills_0: 1676308008278888504
+      skills_21: -2882701144099320679
+      skills_5: -591448513898628455
+      skills_7: -3610600748765567780
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

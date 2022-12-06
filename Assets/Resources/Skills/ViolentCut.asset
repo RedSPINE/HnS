@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: -979634279710815963, guid: a2653f26be073204c95bfd2d10d938f3, type: 3}
   skillName: Violent Cut
-  toolTip: Slowly swings the greatsword, dealing huge damage in a cone, while moving
-    forward.
+  toolTip: Slowly swings the greatsword, dealing huge damage in a cone, while slightly
+    moving forward.
   animation: {fileID: 7400000, guid: 22cbad0e7b08c694493423eedc6f3e61, type: 2}
-  animationSpeed: 1.1
+  animationSpeed: 2
   particleSystem: {fileID: 0}
   lookCursor: 1
   displacement:
@@ -72,10 +72,10 @@ MonoBehaviour:
     destroyOnStateQuit: 0
     prefab: {fileID: 346224836964371831, guid: 3273ae481d8f96b4db3e2d675196d46f, type: 3}
   Hitboxes:
-  - timeToOpen: 0.462
+  - timeToOpen: 0.562
     timeToClose: 0.703
     hitboxType: 0
     baseDamage: 20
     prefab: {fileID: 5429999382685472303, guid: 113241f84f737ac459e3f84c703f9df1, type: 3}
     gameObject: {fileID: 0}
-  internalCounter: 0.6899667
+  internalCounter: 1.6246141

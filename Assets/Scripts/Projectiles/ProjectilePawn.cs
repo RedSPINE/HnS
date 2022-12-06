@@ -27,18 +27,20 @@ public class ProjectilePawn : MonoBehaviour
     void Update()
     {
         internalLifetime += Time.deltaTime;
-        if(internalLifetime > lifetime) AutoDestroy();
+        if(internalLifetime > lifetime) Stop();
         transform.position += transform.forward * Time.deltaTime * speed;
     }
 
-    private void AutoDestroy()
+    private void Stop()
     {
-        Instantiate(explosion, transform.position, transform.rotation);
-        Destroy(this.gameObject);
+        //Instantiate(explosion, transform.position, transform.rotation);
+        speed = 0;
+        //Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider other) {
         Debug.Log(other.name);
-        AutoDestroy();
+            other.GetComponent<Entity>().TakeDamage(projectile.Damage);
+        Stop();
     }
 }
